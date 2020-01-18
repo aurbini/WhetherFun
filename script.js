@@ -1,3 +1,4 @@
+
 //Use geoCoding api 
 
 function geoCodingAPI (){
@@ -72,7 +73,6 @@ $.ajax({
 // }).then(function(response) {
 //   console.log(response); 
 
-
 // }); 
 
 //Fandango API Key 
@@ -93,3 +93,9 @@ $.ajax({
 // }); 
 // }
 // fandangoCall()
+=======
+
+
+//alert('hello ')
+
+
