@@ -24,27 +24,23 @@ function zomatoCall (lat, lon){
 
 var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
 var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}`
-//`https://developers.zomato.com/api/v2.1/establishments?city_id=miami${apiKey}`; 
-//https://developers.zomato.com/api/v2.1/search?count=50&lat=40.7128&lon=-74.0060
 $.ajax({
   method: "GET",
-  url: queryURL,
-  "user-key": "9be8eb8bb66ec64005c8cc43793d3c60"}).then(function(response){
-    console.log(response); 
+  url: queryURL
+  crossDomain: true,
+  dataType: "json",
+  async: true,
+  headers: {
+    "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
+      }, success: function(data){
+       console.log(data); 
+      
   })
 
 
-    // crossDomain: true,
-
-  // dataType: "json",
-  // async: true,
-  // headers: {
-  //   "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
-  //     }, success: function(data){
-       // console.log(data); 
-      }
-//   })
-// }
+// }).then(function(response){
+//     console.log(response); 
+}
 // zomatoCall(); 
 
 
