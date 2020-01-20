@@ -45,11 +45,10 @@ $(document).ready(function(){
     headers: {
       "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
         }, success: function(data){
-        console.log(data); 
-        
+        console.log(data);     
       }
-  })
-} 
+    })
+  } 
   function parkCall(){
     var query = 'ny';
     var apiKey = 'TxE6rx6hQUOue3edfK0WYCJqyrot1uDhW1KRLBvd';
@@ -89,6 +88,191 @@ function renderMoodDisplay(){
 
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//books
+
+
+function openlibAPI(){
+  var apiKey = ''
+  var queryURL = `http://openlibrary.org/subjects/comedy.json?details=true`
+  $.ajax({
+    method:"GET",
+    url:queryURL,
+    crossDomain:true,
+    dataType: "json",
+    async: true,
+  }).then(function(response){
+    console.log(response); 
+  })
+}
+openlibAPI();
+
+//modal
+var button = document.getElementById('sub');
+var modal = document.getElementById('page-modal');
+var close = document.getElementsByClassName('modal-close')[0]
+
+button.onclick = function(){
+modal.style.display = 'block';
+}
+
+//closing the modal x button
+close.onclick = function(){
+modal.style.display = 'none';
+}
+
+//closing the dark space around the modal background
+window.onclick = function(event){
+  if (event.target.className == 'modal-background'){
+      this.modal.style.display = 'none';
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
