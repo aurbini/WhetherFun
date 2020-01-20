@@ -1,15 +1,7 @@
 
 //Use geoCoding api 
 $(document).ready(function(){
-  //Global Variables
-  var mainContent = $('.container'); 
-  var street = $('#street');
-  var city = $('#city');
-  var zipcode = $('#zipcode');
-  var state = $('#state');
-  var country = $('#country'); 
 
-  //API CAlls---------------------------------------------------------------------
   function geoCodingAPI (){
     var street = '285 Fulton St,' ; 
     var city = 'New York,';
@@ -31,6 +23,8 @@ $(document).ready(function(){
     }
 
   geoCodingAPI(); 
+
+
   //Zomato API 
   function zomatoCall (lat, lon){
 
@@ -63,31 +57,21 @@ $(document).ready(function(){
      }
   parkCall(); 
 
-//Helper Function----------------------------------------------->
-function renderMoodDisplay(){
-  mainContent.empty(); 
-  
-}
-
-
-
-
-
-
-
-
-  //event call------------------------------------------------------> 
-  $('.start-button').click(function(event){
-    event.preventDefault();
-    console.log('buttton')
-
-
-    renderMoodDisplay();
-  })
-
-
-
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
