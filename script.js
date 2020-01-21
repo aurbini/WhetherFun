@@ -1,6 +1,7 @@
 
 //Use geoCoding api 
 $(document).ready(function(){
+
   // if (navigator.geolocation) {
   //   var timeoutVal = 10 * 1000 * 1000;
   //   navigator.geolocation.getCurrentPosition(
@@ -18,6 +19,12 @@ $(document).ready(function(){
   // }
   // displayPosition();
   
+=======
+  //Global Variables
+  
+
+  //API CAlls---------------------------------------------------------------------
+
   function geoCodingAPI (){
     var street = document.getElementById('street').value.trim(); 
     var city = document.getElementById('city').value.trim(); 
@@ -30,6 +37,7 @@ $(document).ready(function(){
 
     $.ajax({
       url:  queryUrl ,
+
       method: "GET"
     }).then(function(response) {
      // console.log(response.results); 
@@ -40,7 +48,6 @@ $(document).ready(function(){
       //zomatoCall(lat, lon); 
       })
     }
-
 
 
   //Zomato API 
@@ -95,11 +102,18 @@ $('#happy-button').click(function(){
 
 
 
+  //event call------------------------------------------------------> 
+  $('.start-button').click(function(event){
+    event.preventDefault();
+    console.log('buttton')
+
+
+    renderMoodDisplay();
+  })
 
 
 
-
-
+})
 
 
 
