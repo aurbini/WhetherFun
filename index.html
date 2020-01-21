@@ -7,12 +7,42 @@
   <title>WhetherFun</title>
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-   
+   <style>
+     .hero{
+       background: url(assets/images/hero-2.jpg) center / cover;
+     }
+
+      @media (max-width: 1024px) {.hero {background:url(assets/images/hero-2.jpg) center / cover;} }
+     @media (max-width: 768px) { .hero{background:url(assets/images/hero.jpg) center / cover; }}
+    
+   </style>
 
 </head>
 
 <body>
+
+  <!-- <figure class="image is-128x128">
+    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+  </figure> -->
+
+  <section class="hero is-success is-fullheight">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          
+        </h1>
+        <h2 class="subtitle">
+          
+        </h2>
+      </div>
+    </div>
+  
+
+  <section class="hero is-fullheight"> 
+          
     
+
+
   <section class="hero is-danger">
       <div class="hero-body">
         <div class="container has-text-centered ">
@@ -33,9 +63,11 @@
         <div class = "container form" >
         
         
+
         </div>
       </section>
       <section class="section">
+
         <div class="container" id='main-content'>
           <div class="columns is-vcentered">
             <div class="column">
@@ -125,13 +157,13 @@
           <div class = "section modal-wrap">
             <!-- Any other Bulma elements you want -->
             
-            <div id="modal container" class="box">
+            <div class="box">
               <article class="media">
                 <div class="media-left">
                   <figure class="image is-64x64">
                     <img src="https://cardinalwxservice.com/wp-content/uploads/2019/09/Fall-1.jpg" alt="Image">
                   </figure>
-                </div>ƒ
+                </div>
                 <div class="media-content">
                   <div class="content">
                     <p>
@@ -141,9 +173,9 @@
                     </p>
                     <div class="buttons">
               
-                      <button id="sad-button" value="sad" class="button is-warning">Sad</button>
+                      <button class="button is-warning" id='sad-button'>Sad</button>
           
-                      <button id="happy-button" value="happy" class="button is-success">Happy</button>
+                      <button class="button is-success" id='happy-button'>Happy</button>
                      
                     </div>
                   </div>
@@ -180,12 +212,25 @@
 
               </div>
         
-  </div>
-      
- 
-      
+              
+            
+           
+                
+          
 
-  
+
+  </div>
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
+      </p>
+    </div>
+  </footer>
+      
+</section>
     
   
   <script
