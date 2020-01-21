@@ -24,6 +24,7 @@ $(document).ready(function(){
       parkCall(userLat, userLon,state); 
       console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
       zomatoCall(userLat, userLon); 
+      weatherCall(city); 
       })
     }
 
@@ -141,7 +142,31 @@ googleBooks();
   })
 
 
-
+  function weatherCall(city){
+    var query = city
+    var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
+    var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
+    $.ajax({
+        url: weatherQueryURL,
+        method: "GET"
+    }).then(function(response) {
+        console.log(response);
+      
+    // $('#city').html('<div>' + response.name + '</div>');
+    // $('#state').html('<div>' + response.name + '</div>');
+    // $('#zipcode').html('<div>' + response.zipcode + '</div>');
+    // $('#country').html('<div>' + response.name + '</div>');
+    // $('wind').text("Wind Speed: " + response.wind.speed);
+    // $('humidity').text("Humidity: " + response.main.humidity);
+    // $('temp').text('Temperature(F) ' + response.main.temp);
+    // var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+    // $('tempF').text('Temperature (Kelvin)' + tempF);
+    // console.log("Wind Speed: " + response.wind.speed);
+    // console.log("Humidity: " + response.main.humidity);
+    // console.log("Temperature (F): " + response.main.temp);
+    // });
+  })
+}
 
 
 
@@ -288,11 +313,13 @@ googleBooks();
   }
   sadButton.onclick = function (){
     submitButton.style.display = 'none';
+
 }
 
   button.onclick = function(){
   modal.style.display = 'block';
   geoCodingAPI(); 
+  weatherCall(); 
   containerForm.innerHTML = '';
 
   
