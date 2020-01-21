@@ -346,7 +346,7 @@ googleBooks();
   //closing the dark space around the modal background
   window.onclick = function(event){
     if (event.target.className == 'modal-background'){
-      // this.modal.style.display = 'none';
+        modal.style.display = 'none';
     }
 
   }
