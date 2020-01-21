@@ -24,7 +24,6 @@ $(document).ready(function(){
       parkCall(userLat, userLon,state); 
       console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
       zomatoCall(userLat, userLon); 
-      weatherCall(city); 
       })
     }
 
@@ -151,7 +150,15 @@ googleBooks();
         method: "GET"
     }).then(function(response) {
         console.log(response);
-      
+        var name = response.name;
+        var wind = response.wind.speed;
+        var temp = response.main.temp;
+        var main = response.weather[0].main;
+        console.log(name, wind, temp, main)
+        console.log(main);
+
+
+
     // $('#city').html('<div>' + response.name + '</div>');
     // $('#state').html('<div>' + response.name + '</div>');
     // $('#zipcode').html('<div>' + response.zipcode + '</div>');
@@ -318,8 +325,9 @@ googleBooks();
 
   button.onclick = function(){
   modal.style.display = 'block';
+  var city = document.getElementById('city').value.trim() + ','; 
   geoCodingAPI(); 
-  weatherCall(); 
+  weatherCall(city); 
   containerForm.innerHTML = '';
 
   
@@ -346,7 +354,7 @@ googleBooks();
   //closing the dark space around the modal background
   window.onclick = function(event){
     if (event.target.className == 'modal-background'){
-      // this.modal.style.display = 'none';
+      modal.style.display = 'none';
     }
 
   }
