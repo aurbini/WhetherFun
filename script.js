@@ -14,26 +14,23 @@ $(document).ready(function(){
      var queryUrl = `https://api.opencagedata.com/geocode/v1/json?q=${street}${city}${state}${zipcode}${country}&key=${apiKey}`;
 
     $.ajax({
-      url:  queryUrl ,
-
+      url:  queryUrl,
       method: "GET"
     }).then(function(response) {
      // console.log(response.results); 
       console.log(response); 
       userLat = response.results[0].geometry.lat;
       userLon = response.results[0].geometry.lng;
-      //parkCall(userLat, userLon,state); 
-      //console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
-      //zomatoCall(userLat, userLon); 
-      })
-    }
 
-  //Zomato API 
-  function zomatoCall (lat, lon){
+      zomatoCall(userLat, userLon); 
+    })
+  }
+    //Zomato API 
+    function zomatoCall (lat, lon){
 
-  var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
-  var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}&start=0&count=20`
-  $.ajax({
+    var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
+    var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}&start=0&count=20`
+    $.ajax({
     method: "GET",
     url: queryURL,
     crossDomain: true,
@@ -53,8 +50,7 @@ $(document).ready(function(){
   } 
 
   function parkCall(userLat, userLon, state){
-    var query = state; 
-    //document.getElementById('state').value.trim();
+    var query = document.getElementById('state').value.trim();
     var apiKey = 'TxE6rx6hQUOue3edfK0WYCJqyrot1uDhW1KRLBvd';
     var URL = 'https://developer.nps.gov/api/v1/parks?';
     var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
@@ -64,10 +60,13 @@ $(document).ready(function(){
       }).then(function(response) {  
         var randomPark = Math.floor(Math.random(response.data.length ))
         console.log(response.data);
-        console.log(response.data[randomPark]);
-        console.log(response.data[randomPark].name);
-        console.log(response.data[randomPark].description);
-        // // console.log(response.data[0].latLong.split(","));
+        //var parkName = response.data[randomPark];
+        var parkDescription = response.data[randomPark].name);
+        var parkName = response.data[randomPark].description);
+
+
+        
+        //console.log(response.data[0].latLong.split(","));
 
         // var parkLat; 
         // var parkLon; 
@@ -99,36 +98,33 @@ $(document).ready(function(){
          // }
          })
       }
-//Click Event for Modam------------------->
-$('#sad-button').click(function(){
-  $('.modal').addClass('modal')
-})
+  //Click Event for Modam------------------->
+  // $('#sad-button').click(function(){
+  //   $('.modal').addClass('modal')
+  // })
 
-$('#happy-button').click(function(){
-   
-})
+  // $('#happy-button').click(function(){
+  //   //containerForm.innerHTML = '';
 
-function googleBooks(){
-  var query = 'flowers+inauthor:'; 
-  var apiKey = 'key=AIzaSyAFxlv3833hPBkescVH_W-BiCVlOlKp_Rs';
-  var url = 'https://www.googleapis.com/books/v1/volumes?q='
-  var queryURL = url+query+apiKey
-  $.ajax({
-    url: 'https://www.googleapis.com/books/v1/volumes?q=comedy+subjects&maxResults=40'
-    ,
-    method: "GET"
-  }).then(function(response) { 
-    var randomBook = Math.floor(Math.random()*response.items.length)
-    //console.log(`Google Books APi = ${response}`)
-    var title = response.items[randomBook].volumeInfo.title; 
-    var description = response.items[randomBook].volumeInfo.description;
+  // })
+
+  function googleBooks(){
+    var query = 'flowers+inauthor:'; 
+    var apiKey = 'key=AIzaSyAFxlv3833hPBkescVH_W-BiCVlOlKp_Rs';
+    var url = 'https://www.googleapis.com/books/v1/volumes?q='
+    var queryURL = url+query+apiKey
+    $.ajax({
+      url: 'https://www.googleapis.com/books/v1/volumes?q=comedy+subjects&maxResults=40'
+      ,
+      method: "GET"
+    }).then(function(response) { 
+      var randomBook = Math.floor(Math.random()*response.items.length)
+      console.log(`Google Books APi = ${response}`)
+      var title = response.items[randomBook].volumeInfo.title; 
+      var description = response.items[randomBook].volumeInfo.description;
     })
-}
-googleBooks();
-
-
-
-
+  }
+  //googleBooks();
 
 
   //event call------------------------------------------------------> 
@@ -139,185 +135,74 @@ googleBooks();
 
     renderMoodDisplay();
   })
-var name; 
-var wind; 
-var temp;
-var main; 
+  var name; 
+  var wind; 
+  var temp;
+  var main; 
 
   function weatherCall(city){
+    console.log(city);
     var query = city
     var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
     var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
     $.ajax({
-        url: weatherQueryURL,
-        method: "GET"
+      url: weatherQueryURL,
+      method: "GET"
     }).then(function(response) {
-        console.log(response);
-        name = response.name;
-        wind = response.wind.speed;
-        temp = response.main.temp;
-        main = response.weather[0].main;
-        console.log(name, wind, temp, main)
-        console.log(main);
-      
+      console.log(response);
+      name = response.name;
+      wind = response.wind.speed;
+      temp = response.main.temp;
+      main = response.weather[0].main;
+      console.log(main); 
+      var badWeather; 
+      var goodWeather; 
+      if(main === 'Clear'){
+        //console.log('goodweather')
+        goodWeather = true; 
+      }else {
+        badWeather = true; 
+      }
+      //console.log(name, wind, temp, main)
+      //console.log(main);
+      var happyButton = document.getElementById('happy-button') 
+      var sadButton = document.getElementById('sad-button');
+      happyButton.onclick = function(){
+        submitButton.style.display = 'none';
+        happyLogic(goodWeather,badWeather);
+        }
+        //console.log('happy');  
+        sadButton.onclick = function (){
+        submitButton.style.display = 'none';
+        sadLogic(goodWeather, badWeather); 
+        }
+      })
+    }
 
-    // $('#city').html('<div>' + response.name + '</div>');
-    // $('#state').html('<div>' + response.name + '</div>');
-    // $('#zipcode').html('<div>' + response.zipcode + '</div>');
-    // $('#country').html('<div>' + response.name + '</div>');
-    // $('wind').text("Wind Speed: " + response.wind.speed);
-    // $('humidity').text("Humidity: " + response.main.humidity);
-    // $('temp').text('Temperature(F) ' + response.main.temp);
-    // var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-    // $('tempF').text('Temperature (Kelvin)' + tempF);
-    // console.log("Wind Speed: " + response.wind.speed);
-    // console.log("Humidity: " + response.main.humidity);
-    // console.log("Temperature (F): " + response.main.temp);
-    // });
-  })
-}
-  function happyLogic(name, wind, temp, main){
-    if(temp < 40){
-      console.log('its cold and youre happy')
+   
+  function happyLogic(goodWeather, badWeather){
+    var happy = true; 
+    console.log('happy');
+    if(goodWeather){
+      parkCall(); 
+    }else{
+      geoCodingAPI(); 
     }
   }
 
-  function sadLogic(){
-    if(temp < 40){
-      console.log('its cold and your sad')
+
+  function sadLogic(temp){
+    var sad = true; 
+    console.log('sad'); 
+    if(temp > 40){
+      googleBooks(); 
+    }else{
+      movieCall();
     }
   }
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //modal
+
   var button = document.getElementById('sub');
   var modal = document.getElementById('page-modal');
   var close = document.getElementsByClassName('modal-close')[0]
@@ -327,33 +212,13 @@ var main;
   var sadButton = document.getElementById('sad-button');
   var submitButton = document.getElementById('submit-button');
 
-  happyButton.onclick = function (){
-      submitButton.style.display = 'none';
-      happyLogic();
-  }
-  sadButton.onclick = function (){
-    submitButton.style.display = 'none';
-    sadLogic(); 
-
-}
 
   button.onclick = function(){
   modal.style.display = 'block';
-  var city = document.getElementById('city').value.trim() + ','; 
+  var city = document.getElementById('city').value.trim(); 
   //geoCodingAPI(); 
+  //console.log(city); 
   weatherCall(city); 
-  containerForm.innerHTML = '';
-
-  
-  //$('.container').empty(); 
-  //renderLibrary();
-  // while(containerForm.firstChild){
-  //   containerForm.removeChild(containerForm.firstChild);
-  // }
-  // while(submitButton.firstChild){
-  //   submitButton.removeChild(submitButton.firstChild);
-  // }
-  //submitButton.style.display = 'none';
 
   }
 
@@ -367,17 +232,28 @@ var main;
 
   //closing the dark space around the modal background
   window.onclick = function(event){
-    if (event.target.className == 'modal-background'){
+    if(event.target.className === 'modal-background'){
       modal.style.display = 'none';
-
     }
-
   }
 
-
-
-
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -416,3 +292,29 @@ var main;
 
 
 //////--------------------------------------------------------------
+
+
+    // $('#city').html('<div>' + response.name + '</div>');
+    // $('#state').html('<div>' + response.name + '</div>');
+    // $('#zipcode').html('<div>' + response.zipcode + '</div>');
+    // $('#country').html('<div>' + response.name + '</div>');
+    // $('wind').text("Wind Speed: " + response.wind.speed);
+    // $('humidity').text("Humidity: " + response.main.humidity);
+    // $('temp').text('Temperature(F) ' + response.main.temp);
+    // var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+    // $('tempF').text('Temperature (Kelvin)' + tempF);
+    // console.log("Wind Speed: " + response.wind.speed);
+    // console.log("Humidity: " + response.main.humidity);
+    // console.log("Temperature (F): " + response.main.temp);
+    // });
+
+
+      //$('.container').empty(); 
+  //renderLibrary();
+  // while(containerForm.firstChild){
+  //   containerForm.removeChild(containerForm.firstChild);
+  // }
+  // while(submitButton.firstChild){
+  //   submitButton.removeChild(submitButton.firstChild);
+  // }
+  //submitButton.style.display = 'none';
