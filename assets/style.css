@@ -2,3 +2,6 @@ p {
   color: red; 
 }
 
+.modal {
+  display: none; 
+}

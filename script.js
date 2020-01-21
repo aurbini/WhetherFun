@@ -1,37 +1,55 @@
 
 //Use geoCoding api 
 $(document).ready(function(){
+
+  // if (navigator.geolocation) {
+  //   var timeoutVal = 10 * 1000 * 1000;
+  //   navigator.geolocation.getCurrentPosition(
+  //     displayPosition,
+  //   //  displayError,
+  //     { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  //   );
+  // }
+  // else {
+  //   alert("Geolocation is not supported by this browser");
+  // }
+  
+  // function displayPosition(position) {
+  //   alert("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
+  // }
+  // displayPosition();
+  
+=======
   //Global Variables
-  var mainContent = $('.container'); 
-  var street = $('#street');
-  var city = $('#city');
-  var zipcode = $('#zipcode');
-  var state = $('#state');
-  var country = $('#country'); 
+  
 
   //API CAlls---------------------------------------------------------------------
+
   function geoCodingAPI (){
-    var street = '285 Fulton St,' ; 
-    var city = 'New York,';
-    var state = 'NY,'; 
-    var zipCode = '10007,'; 
-    var country = 'United States'; 
+    var street = document.getElementById('street').value.trim(); 
+    var city = document.getElementById('city').value.trim(); 
+    var state = document.getElementById('state').value.trim();
+    var zipcode = document.getElementById('zipcode').value.trim(); 
+    var country = document.getElementById('country').value.trim(); 
+    console.log(street, city, state, zipcode, country); 
     var apiKey = 'b779461f362d4375b7fe76ba33e12e1f';
-    var queryUrl = `https://api.opencagedata.com/geocode/v1/json?q=${street}${city}${state}${zipCode}${country}&key=${apiKey}`;
+    var queryUrl = `https://api.opencagedata.com/geocode/v1/json?q=${street}${city}${state}${zipcode}${country}&key=${apiKey}`;
 
     $.ajax({
       url:  queryUrl ,
 
       method: "GET"
     }).then(function(response) {
-      var lat = response.results[0].geometry.lat;
-      var lon = response.results[0].geometry.lng;
-      console.log(lat, lon); 
-      zomatoCall(lat, lon); 
+     // console.log(response.results); 
+      console.log(response); 
+      //var lat = response.results[0].geometry.lat;
+      //var lon = response.results[0].geometry.lng;
+     // console.log(`Lat = ${lat}, lon = ${lon}`); 
+      //zomatoCall(lat, lon); 
       })
     }
 
-  geoCodingAPI(); 
+
   //Zomato API 
   function zomatoCall (lat, lon){
 
@@ -50,8 +68,11 @@ $(document).ready(function(){
       }
     })
   } 
+
+
   function parkCall(){
-    var query = 'ny';
+    var query = document.getElementById('state').value.trim();
+    ;
     var apiKey = 'TxE6rx6hQUOue3edfK0WYCJqyrot1uDhW1KRLBvd';
     var URL = 'https://developer.nps.gov/api/v1/parks?';
     var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
@@ -59,17 +80,21 @@ $(document).ready(function(){
         url: queryURL ,
         method: "GET"
       }).then(function(response) {  
-        console.log(response); 
+        //console.log(response); 
       })
      }
   parkCall(); 
 
-//Helper Function----------------------------------------------->
-function renderMoodDisplay(){
-  mainContent.empty(); 
-  
-}
 
+
+//Click Event for Modam------------------->
+$('#sad-button').click(function(){
+  $('.modal').addClass('modal')
+})
+
+$('#happy-button').click(function(){
+   
+})
 
 
 
@@ -225,7 +250,7 @@ function renderMoodDisplay(){
 
 function openlibAPI(){
   var apiKey = ''
-  var queryURL = `http://openlibrary.org/subjects/comedy.json?details=true`
+  var queryURL = `http://openlibrary.org/subjects/humour.json?details=true`
   $.ajax({
     method:"GET",
     url:queryURL,
@@ -233,8 +258,16 @@ function openlibAPI(){
     dataType: "json",
     async: true,
   }).then(function(response){
-    console.log(response); 
+    console.log(response.works[0].availability.status); 
+    console.log(response.works[0].title); 
+    console.log(response.works[0]); 
+
   })
+}
+
+function renderLibrary (){
+  document.getElementsByID('main-content').innerHTML = '';
+
 }
 openlibAPI();
 
@@ -242,14 +275,27 @@ openlibAPI();
 var button = document.getElementById('sub');
 var modal = document.getElementById('page-modal');
 var close = document.getElementsByClassName('modal-close')[0]
+var containerForm = document.getElementById('main-content'); 
+
 
 button.onclick = function(){
 modal.style.display = 'block';
+geoCodingAPI(); 
+parkCall(); 
+containerForm.innerHTML = '';
+//$('.container').empty(); 
+renderLibrary();
+while(containerForm.firstChild){
+  containerForm.removeChild(containerForm.firstChild);
 }
+}
+
+
 
 //closing the modal x button
 close.onclick = function(){
 modal.style.display = 'none';
+//$('.container').empty(); 
 }
 
 //closing the dark space around the modal background
@@ -276,5 +322,5 @@ window.onclick = function(event){
 
 
 
-
+})
 //////--------------------------------------------------------------
