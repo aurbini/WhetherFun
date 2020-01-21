@@ -2,7 +2,8 @@
 //Use geoCoding api 
 $(document).ready(function(){
   //API CAlls---------------------------------------------------------------------
-
+  var userLat; 
+  var userLon; 
   function geoCodingAPI (){
     var street = document.getElementById('street').value.trim() + ','; 
     var city = document.getElementById('city').value.trim() + ','; 
@@ -19,11 +20,11 @@ $(document).ready(function(){
     }).then(function(response) {
      // console.log(response.results); 
       console.log(response); 
-      var userLat = response.results[0].geometry.lat;
-      var userLon = response.results[0].geometry.lng;
-      parkCall(userLat, userLon,state); 
-      console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
-      zomatoCall(userLat, userLon); 
+      userLat = response.results[0].geometry.lat;
+      userLon = response.results[0].geometry.lng;
+      //parkCall(userLat, userLon,state); 
+      //console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
+      //zomatoCall(userLat, userLon); 
       })
     }
 
@@ -118,10 +119,9 @@ function googleBooks(){
     method: "GET"
   }).then(function(response) { 
     var randomBook = Math.floor(Math.random()*response.items.length)
-    console.log(`Google Books APi = ${response}`)
-    console.log(response.items[randomBook].volumeInfo.title); 
-    console.log(response.items[randomBook].volumeInfo.description);
-    console.log(response.items[randomBook].volumeInfo.imageLinks.smallThumbnail);
+    //console.log(`Google Books APi = ${response}`)
+    var title = response.items[randomBook].volumeInfo.title; 
+    var description = response.items[randomBook].volumeInfo.description;
     })
 }
 googleBooks();
@@ -139,7 +139,10 @@ googleBooks();
 
     renderMoodDisplay();
   })
-
+var name; 
+var wind; 
+var temp;
+var main; 
 
   function weatherCall(city){
     var query = city
@@ -150,14 +153,13 @@ googleBooks();
         method: "GET"
     }).then(function(response) {
         console.log(response);
-        var name = response.name;
-        var wind = response.wind.speed;
-        var temp = response.main.temp;
-        var main = response.weather[0].main;
+        name = response.name;
+        wind = response.wind.speed;
+        temp = response.main.temp;
+        main = response.weather[0].main;
         console.log(name, wind, temp, main)
         console.log(main);
-
-
+      
 
     // $('#city').html('<div>' + response.name + '</div>');
     // $('#state').html('<div>' + response.name + '</div>');
@@ -174,7 +176,17 @@ googleBooks();
     // });
   })
 }
+  function happyLogic(name, wind, temp, main){
+    if(temp < 40){
+      console.log('its cold and youre happy')
+    }
+  }
 
+  function sadLogic(){
+    if(temp < 40){
+      console.log('its cold and your sad')
+    }
+  }
 
 
  
@@ -317,16 +329,18 @@ googleBooks();
 
   happyButton.onclick = function (){
       submitButton.style.display = 'none';
+      happyLogic();
   }
   sadButton.onclick = function (){
     submitButton.style.display = 'none';
+    sadLogic(); 
 
 }
 
   button.onclick = function(){
   modal.style.display = 'block';
   var city = document.getElementById('city').value.trim() + ','; 
-  geoCodingAPI(); 
+  //geoCodingAPI(); 
   weatherCall(city); 
   containerForm.innerHTML = '';
 
