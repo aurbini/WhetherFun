@@ -369,6 +369,7 @@ var main;
   window.onclick = function(event){
     if (event.target.className == 'modal-background'){
       modal.style.display = 'none';
+
     }
 
   }
