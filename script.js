@@ -104,57 +104,102 @@ $(document).ready(function(){
   //googleBooks();
 
 
-  //event call------------------------------------------------------> 
-  $('.start-button').click(function(event){
-    event.preventDefault();
-    //console.log('buttton')
 
 
-    renderMoodDisplay();
-  })
-  var name; 
-  var wind; 
-  var temp;
-  var main; 
 
-  function weatherCall(city){
-   // console.log(city);
-    var query = city
-    var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
-    var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
+
+
+
+
+function movieTheatre() {
+    var query = 'ny';
+    var apiKey = 'qbrg7qrtgv798gkj8f8gkgdk';
+    var URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2020-01-20&zip=78701&api_key=qbrg7qrtgv798gkj8f8gkgdk';
+    var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
     $.ajax({
-      url: weatherQueryURL,
-      method: "GET"
-    }).then(function(response) {
-     // console.log(response);
-      name = response.name;
-      wind = response.wind.speed;
-      temp = response.main.temp;
-      main = response.weather[0].main;
-      
-      console.log(typeof wind); 
-      var goodWeather; 
-      if(main === 'Clear' && temp > 50 && wind < 15){
-        //console.log('goodweather')
-        goodWeather = true; 
-      }else {
-        goodWeather = false; 
-      }
-      //console.log(name, wind, temp, main)
-      //console.log(main);
-      var happyButton = document.getElementById('happy-button') 
-      var sadButton = document.getElementById('sad-button');
-      happyButton.onclick = function(){
-        submitButton.style.display = 'none';
-        happyLogic(goodWeather);
-        }
-        //console.log('happy');  
-      sadButton.onclick = function (){
-        submitButton.style.display = 'none';
-        sadLogic(goodWeather); 
-        }
+        url: queryURL ,
+        method: "GET"
+      }).then(function(response) {  
+        console.log(response); 
       })
-    }
+     }
+     movieTheatre();
+//----------------------------------------------------------------------------------//
+var submit;
+var city;
+var state;
+var zipcode;
+var country;
+var APIkey = '&appid=559ef9ee4eef6c921d74471722ef2949';
+var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?';
+var forecastAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+var units = '&units=imperial';
+
+$(document).ready(function() {
+
+var 
+
+//declearing gloabl variables. Display Movies based on sad and happy mood. 
+//var movieTheatre
+//var sadMood = 
+//var happyMood = 
+//var sadbtn = 
+//var happybtn =
+
+//Once sad or happy button clicked the screen will display the comedy or action movies 
+//$(document).ready(function() {
+
+    //function weather() {
+    //var city =
+   // var state =
+   // var zipCode =
+   // var country =
+   // var temperature =
+   // var apiKey = '&appid=559ef9ee4eef6c921d74471722ef2949&units=imperial';
+   // var weatherApi = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  //  weather()
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Declearing global variables. Dispay weather information along with movie list.
+//var city =
+//var zipCode =
+//var street =
+//var state =
+//var country =
+//var temperature =
+//var humidity =
+//var  windspeed =
+//var uvIndex =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    //Game Logic ---------------------------------------
   function happyLogic(goodWeather){
@@ -181,65 +226,10 @@ $(document).ready(function(){
     }
   }
 
-//modal
-//Rendering Information 
-//Park rendering information 
-function renderPark(parkInfo){
-  console.log('park call -1');
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  console.log(parkInfo);
-  console.log(parkInfo.length);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div has-background"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  console.log(parkDiv)
-  for(var i = 0; i < parkInfo.length; i++){
-    infoDiv.innerHTML += `<p class="park-info">${parkInfo[i]}</p>'`
-    }
-  }
-  
-  function renderBooks(bookInfo){
-    console.log('park call -1');
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  //console.log(parkInfo);
-  console.log(bookInfo.length);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  for(var i = 0; i < bookInfo.length; i++){
-    infoDiv.innerHTML += `<p class="info">${bookInfo[i]}</p>'`
-    }
-  }
-  function renderRestaurant(restaurantInfo){
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  console.log(restaurantInfo);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  
-  for(var i = 0; i < restaurantInfo.length; i++){
-    if(i === 3){
-      var image = document.createElement(`img`);
-      image.setAttribute('src',restaurantInfo[i]);
-      console.log(restaurantInfo[i]); 
 
-      infoDiv.appendChild(image);
 
-      //infoDiv.appendChild(`<img src='${restaurantInfo[i]}'>`);
-      break; 
-    }
-    infoDiv.innerHTML += `<p class='info'>${restaurantInfo[i]}</p>'`
-    }
-  }
+
+
 
 
 
@@ -430,9 +420,12 @@ function renderPark(parkInfo){
   // $('#happy-button').click(function(){
   //   //containerForm.innerHTML = '';
 
+
   // })
 
 //---------------------------------------------------------------------------------------------------//
+
+=======
 
     $('#searchForm').on('submit', (e) => {
         var searchText = $('#searchText').val();
@@ -441,19 +434,24 @@ function renderPark(parkInfo){
     });
 
 
+
 function getMovies(searchText) {
 //console.log(searchText);
     axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&s=' + searchText)
         .then((response) => {
+
+=======
 
             console.log(response);
             var movies = response.data.Search;
             var output = '';
             $.each(movies, (index, movie) => {
 
+
                 output += `
 
                 
+
                     <div class = "col-md-3">
                         <div class="well text-center">
                             <img src="${movie.Poster}">
@@ -516,5 +514,8 @@ function getMovie() {
         }).catch((err) => {
             console.log(err);
         });
+
 }
 })
+=======
+
