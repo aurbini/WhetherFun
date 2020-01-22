@@ -39,15 +39,18 @@ $(document).ready(function(){
     headers: {
       "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
         }, success: function(data){
-      console.log(data.nearby_restaurants.length);
-      console.log(data.nearby_restaurants);
+      //console.log(data.nearby_restaurants.length);
+      //console.log(data.nearby_restaurants);
       var randomRestaurant = Math.floor(Math.random() * data.nearby_restaurants.length + 1)
-      console.log(randomRestaurant);
+      //console.log(randomRestaurant);
       var restName = data.nearby_restaurants[randomRestaurant].restaurant.name;
       var restLocation = data.nearby_restaurants[randomRestaurant].restaurant.location.address;
       var restCuisine = data.nearby_restaurants[randomRestaurant].restaurant.cuisines; 
-      var restPhoto = data.nearby_restaurants[randomRestaurant].restaurant.photos_url; 
-      console.log(`RestName = ${restName}. RestLocation = ${restLocation}, restCuisine = ${restCuisine}, restPhoto = ${restPhoto}`)
+      var restPhoto = data.nearby_restaurants[randomRestaurant].restaurant.featured_image; 
+      console.log(data.nearby_restaurants);
+      //console.log(`RestName = ${restName}. RestLocation = ${restLocation}, restCuisine = ${restCuisine}, restPhoto = ${restPhoto}`)
+      var restaurantInfo = [restName, restLocation, restCuisine,restPhoto];
+      renderRestaurant(restaurantInfo);
       }
     })
   } 
@@ -68,54 +71,16 @@ $(document).ready(function(){
         var parkName = response.data[randomPark].description;
         
         //INFO TO BE DISPLAYED
-        console.log(parkDescription);
-        console.log(parkName); 
+        //console.log(parkDescription);
+        //console.log(parkName); 
+        var parkInfo = [parkDescription, parkName]; 
+        console.log(parkInfo);
         //var displayParkName = createElement("p");
-        //renderParkDisplay();
+        
+        renderPark(parkInfo);
       })
     }
-      
-        //console.log(response.data[0].latLong.split(","));
-
-        // var parkLat; 
-        // var parkLon; 
-        // for(var i = 0; i < response.data.length; i++){
-        //   var cordinates = response.data[i].latLong.split(",");
-        //   var cordinatesLat = cordinates[0];
-        //   var cordinatesLon = cordinates[1];
-        //  // console.log(cordinatesLon)
-        //  // console.log(cordinatesLat)
-        //   for(var currentIndex = 0; currentIndex < cordinatesLat.length; currentIndex++){
-        //     if(cordinatesLat[currentIndex] === ':'){
-        //       parkLat = cordinatesLat.slice([currentIndex +1])
-        //       parkLat = parseInt(parkLat);
-        //       //console.log(parkLat);
-        //     }
-        //   }
-        //   for(var i = 0; i< cordinatesLon.length; i++){
-        //     if(cordinatesLon[i] === ':'){
-        //       parkLon = cordinatesLon.slice([i +1])
-        //       parkLon = parseInt(parkLon)
-        //       //console.log(parkLon);
-
-        //     }
-        //   }
-        //   //console.log(parkLon); 
-        //     if((Math.abs(userLon - parkLon)) < 3){
-        //       console.log(response.data[0].name)
-        //     }
-         // }
-      
-    
-  //Click Event for Modam------------------->
-  // $('#sad-button').click(function(){
-  //   $('.modal').addClass('modal')
-  // })
-
-  // $('#happy-button').click(function(){
-  //   //containerForm.innerHTML = '';
-
-  // })
+  
 
   function googleBooks(){
     var query = 'flowers+inauthor:'; 
@@ -128,10 +93,13 @@ $(document).ready(function(){
     }).then(function(response) { 
       var randomBook = Math.floor(Math.random()*response.items.length)
       //console.log(`Google Books APi = ${response}`)
-      console.log(response.items); 
+      //console.log(response.items); 
       var title = response.items[randomBook].volumeInfo.title; 
       var description = response.items[randomBook].volumeInfo.description;
-      console.log(`book title: ${title}, book description: ${description}`); 
+     // console.log(`book title: ${title}, book description: ${description}`); 
+      var bookInfo = [title, description,];
+      renderBooks(bookInfo);
+
     })
   }
   //googleBooks();
@@ -140,7 +108,7 @@ $(document).ready(function(){
   //event call------------------------------------------------------> 
   $('.start-button').click(function(event){
     event.preventDefault();
-    console.log('buttton')
+    //console.log('buttton')
 
 
     renderMoodDisplay();
@@ -151,7 +119,7 @@ $(document).ready(function(){
   var main; 
 
   function weatherCall(city){
-    console.log(city);
+   // console.log(city);
     var query = city
     var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
     var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
@@ -159,19 +127,19 @@ $(document).ready(function(){
       url: weatherQueryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+     // console.log(response);
       name = response.name;
       wind = response.wind.speed;
       temp = response.main.temp;
       main = response.weather[0].main;
-      console.log(main); 
-      var badWeather; 
+      
+      console.log(typeof wind); 
       var goodWeather; 
-      if(main === 'Clear'){
+      if(main === 'Clear' && temp > 50 && wind < 15){
         //console.log('goodweather')
         goodWeather = true; 
       }else {
-        badWeather = true; 
+        goodWeather = false; 
       }
       //console.log(name, wind, temp, main)
       //console.log(main);
@@ -179,39 +147,102 @@ $(document).ready(function(){
       var sadButton = document.getElementById('sad-button');
       happyButton.onclick = function(){
         submitButton.style.display = 'none';
-        happyLogic(goodWeather,badWeather);
+        happyLogic(goodWeather);
         }
         //console.log('happy');  
       sadButton.onclick = function (){
         submitButton.style.display = 'none';
-        sadLogic(goodWeather, badWeather); 
+        sadLogic(goodWeather); 
         }
       })
     }
 
-   
-  function happyLogic(goodWeather, badWeather){
+   //Game Logic ---------------------------------------
+  function happyLogic(goodWeather){
     var happy = true; 
-    console.log('happy');
-    if(!goodWeather){
+   // console.log('happy');
+    if(goodWeather){
+      //Go to park when happy and weather good
       parkCall(); 
     }else{
-      googleBooks();
+      //Book when happy and weather is bad
+       googleBooks();
     }
   }
-
-
-  function sadLogic(goodWeather,badWeather){
+  ///RElaxed 
+  function sadLogic(goodWeather){
     var sad = true; 
-    console.log('sad'); 
+    console.log('relax'); 
     if(goodWeather){
+      //Restaurant when relaxed and weather is good
       geoCodingAPI(); 
     }else{
-     // movieCall();
+     // when weather is bad and relaxedmovieCall();
     }
   }
 
-  //modal
+//modal
+//Rendering Information 
+//Park rendering information 
+function renderPark(parkInfo){
+  console.log('park call -1');
+  while(containerForm.firstChild){
+    containerForm.removeChild(containerForm.firstChild);
+  }
+  console.log(parkInfo);
+  console.log(parkInfo.length);
+  // var parkDiv = document.createElement('<div>');
+  // console.log(parkDiv); 
+  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  var infoDiv = document.querySelector('.display-info-div');
+  console.log(parkDiv)
+  for(var i = 0; i < parkInfo.length; i++){
+    infoDiv.innerHTML += `<p class="park-info">${parkInfo[i]}</p>'`
+    }
+  }
+  
+  function renderBooks(bookInfo){
+    console.log('park call -1');
+  while(containerForm.firstChild){
+    containerForm.removeChild(containerForm.firstChild);
+  }
+  //console.log(parkInfo);
+  console.log(bookInfo.length);
+  // var parkDiv = document.createElement('<div>');
+  // console.log(parkDiv); 
+  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  var infoDiv = document.querySelector('.display-info-div');
+  for(var i = 0; i < bookInfo.length; i++){
+    infoDiv.innerHTML += `<p class="info">${bookInfo[i]}</p>'`
+    }
+  }
+  function renderRestaurant(restaurantInfo){
+  while(containerForm.firstChild){
+    containerForm.removeChild(containerForm.firstChild);
+  }
+  console.log(restaurantInfo);
+  // var parkDiv = document.createElement('<div>');
+  // console.log(parkDiv); 
+  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  var infoDiv = document.querySelector('.display-info-div');
+  
+  for(var i = 0; i < restaurantInfo.length; i++){
+    if(i === 3){
+      var image = document.createElement(`img`);
+      image.setAttribute('src',restaurantInfo[i]);
+      console.log(restaurantInfo[i]); 
+
+      infoDiv.appendChild(image);
+
+      //infoDiv.appendChild(`<img src='${restaurantInfo[i]}'>`);
+      break; 
+    }
+    infoDiv.innerHTML += `<p class='info'>${restaurantInfo[i]}</p>'`
+    }
+  }
+
+
+
 
   var button = document.getElementById('sub');
   var modal = document.getElementById('page-modal');
@@ -248,6 +279,35 @@ $(document).ready(function(){
   }
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -328,3 +388,46 @@ $(document).ready(function(){
   //   submitButton.removeChild(submitButton.firstChild);
   // }
   //submitButton.style.display = 'none';
+
+      
+        //console.log(response.data[0].latLong.split(","));
+//Trying to get park lat and lon to compare 
+        // var parkLat; 
+        // var parkLon; 
+        // for(var i = 0; i < response.data.length; i++){
+        //   var cordinates = response.data[i].latLong.split(",");
+        //   var cordinatesLat = cordinates[0];
+        //   var cordinatesLon = cordinates[1];
+        //  // console.log(cordinatesLon)
+        //  // console.log(cordinatesLat)
+        //   for(var currentIndex = 0; currentIndex < cordinatesLat.length; currentIndex++){
+        //     if(cordinatesLat[currentIndex] === ':'){
+        //       parkLat = cordinatesLat.slice([currentIndex +1])
+        //       parkLat = parseInt(parkLat);
+        //       //console.log(parkLat);
+        //     }
+        //   }
+        //   for(var i = 0; i< cordinatesLon.length; i++){
+        //     if(cordinatesLon[i] === ':'){
+        //       parkLon = cordinatesLon.slice([i +1])
+        //       parkLon = parseInt(parkLon)
+        //       //console.log(parkLon);
+
+        //     }
+        //   }
+        //   //console.log(parkLon); 
+        //     if((Math.abs(userLon - parkLon)) < 3){
+        //       console.log(response.data[0].name)
+        //     }
+         // }
+      
+    
+  //Click Event for Modam------------------->
+  // $('#sad-button').click(function(){
+  //   $('.modal').addClass('modal')
+  // })
+
+  // $('#happy-button').click(function(){
+  //   //containerForm.innerHTML = '';
+
+  // })
