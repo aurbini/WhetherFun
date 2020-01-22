@@ -105,141 +105,105 @@ $(document).ready(function(){
   //googleBooks();
 
 
-  //event call------------------------------------------------------> 
-  $('.start-button').click(function(event){
-    event.preventDefault();
-    //console.log('buttton')
 
 
-    renderMoodDisplay();
-  })
-  var name; 
-  var wind; 
-  var temp;
-  var main; 
 
-  function weatherCall(city){
-   // console.log(city);
-    var query = city
-    var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
-    var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
+
+
+
+
+function movieTheatre() {
+    var query = 'ny';
+    var apiKey = 'qbrg7qrtgv798gkj8f8gkgdk';
+    var URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2020-01-20&zip=78701&api_key=qbrg7qrtgv798gkj8f8gkgdk';
+    var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
     $.ajax({
-      url: weatherQueryURL,
-      method: "GET"
-    }).then(function(response) {
-     // console.log(response);
-      name = response.name;
-      wind = response.wind.speed;
-      temp = response.main.temp;
-      main = response.weather[0].main;
-      
-      console.log(typeof wind); 
-      var goodWeather; 
-      if(main === 'Clear' && temp > 50 && wind < 15){
-        //console.log('goodweather')
-        goodWeather = true; 
-      }else {
-        goodWeather = false; 
-      }
-      //console.log(name, wind, temp, main)
-      //console.log(main);
-      var happyButton = document.getElementById('happy-button') 
-      var sadButton = document.getElementById('sad-button');
-      happyButton.onclick = function(){
-        submitButton.style.display = 'none';
-        happyLogic(goodWeather);
-        }
-        //console.log('happy');  
-      sadButton.onclick = function (){
-        submitButton.style.display = 'none';
-        sadLogic(goodWeather); 
-        }
+        url: queryURL ,
+        method: "GET"
+      }).then(function(response) {  
+        console.log(response); 
       })
-    }
+     }
+     movieTheatre();
+//----------------------------------------------------------------------------------//
+var submit;
+var city;
+var state;
+var zipcode;
+var country;
+var APIkey = '&appid=559ef9ee4eef6c921d74471722ef2949';
+var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?';
+var forecastAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+var units = '&units=imperial';
 
-   //Game Logic ---------------------------------------
-  function happyLogic(goodWeather){
-    var happy = true; 
-   // console.log('happy');
-    if(goodWeather){
-      //Go to park when happy and weather good
-      parkCall(); 
-    }else{
-      //Book when happy and weather is bad
-       googleBooks();
-    }
-  }
-  ///RElaxed 
-  function sadLogic(goodWeather){
-    var sad = true; 
-    console.log('relax'); 
-    if(goodWeather){
-      //Restaurant when relaxed and weather is good
-      geoCodingAPI(); 
-    }else{
-     // when weather is bad and relaxedmovieCall();
-    }
-  }
+$(document).ready(function() {
 
-//modal
-//Rendering Information 
-//Park rendering information 
-function renderPark(parkInfo){
-  console.log('park call -1');
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  console.log(parkInfo);
-  console.log(parkInfo.length);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div has-background"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  console.log(parkDiv)
-  for(var i = 0; i < parkInfo.length; i++){
-    infoDiv.innerHTML += `<p class="park-info">${parkInfo[i]}</p>'`
-    }
-  }
+var 
+
+//declearing gloabl variables. Display Movies based on sad and happy mood. 
+//var movieTheatre
+//var sadMood = 
+//var happyMood = 
+//var sadbtn = 
+//var happybtn =
+
+//Once sad or happy button clicked the screen will display the comedy or action movies 
+//$(document).ready(function() {
+
+    //function weather() {
+    //var city =
+   // var state =
+   // var zipCode =
+   // var country =
+   // var temperature =
+   // var apiKey = '&appid=559ef9ee4eef6c921d74471722ef2949&units=imperial';
+   // var weatherApi = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  //  weather()
   
-  function renderBooks(bookInfo){
-    console.log('park call -1');
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  //console.log(parkInfo);
-  console.log(bookInfo.length);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  for(var i = 0; i < bookInfo.length; i++){
-    infoDiv.innerHTML += `<p class="info">${bookInfo[i]}</p>'`
-    }
-  }
-  function renderRestaurant(restaurantInfo){
-  while(containerForm.firstChild){
-    containerForm.removeChild(containerForm.firstChild);
-  }
-  console.log(restaurantInfo);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
-  
-  for(var i = 0; i < restaurantInfo.length; i++){
-    if(i === 3){
-      var image = document.createElement(`img`);
-      image.setAttribute('src',restaurantInfo[i]);
-      console.log(restaurantInfo[i]); 
 
-      infoDiv.appendChild(image);
 
-      //infoDiv.appendChild(`<img src='${restaurantInfo[i]}'>`);
-      break; 
-    }
-    infoDiv.innerHTML += `<p class='info'>${restaurantInfo[i]}</p>'`
-    }
-  }
+
+
+
+
+
+
+
+
+
+
+
+//Declearing global variables. Dispay weather information along with movie list.
+//var city =
+//var zipCode =
+//var street =
+//var state =
+//var country =
+//var temperature =
+//var humidity =
+//var  windspeed =
+//var uvIndex =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -430,4 +394,86 @@ function renderPark(parkInfo){
   // $('#happy-button').click(function(){
   //   //containerForm.innerHTML = '';
 
-  // })
+});
+
+//---------------------------------------------------------------------------------------------------//
+$(document).ready(() => {
+    $('#searchForm').on('submit', (e) => {
+        var searchText = $('#searchText').val();
+        getMovies(searchText);
+        e.preventDefault();
+    });
+});
+
+function getMovies(searchText) {
+    console.log(searchText);
+    axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&s=' + searchText)
+        .then((response) => {
+            console.log(response);
+            var movies = response.data.Search;
+            var output = '';
+            $.each(movies, (index, movie) => {
+                output += `
+                    <div class = "col-md-3">
+                        <div class="well text-center">
+                            <img src="${movie.Poster}">
+                            <h5>${movie.Title}</h5>
+                            <a onclick="movieSelected('${movie.imdbID})" class="btn btn-primary" href="movie.html">Movie Detail</a>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#movies').html(output);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+function movieSelected(id) {
+    sessionStorage.setItem('imdbID', id);
+    window.location = 'movie.html';
+    return false;
+}
+
+function getMovie() {
+    var movieId = sessionStorage.getItem('imdbID');
+
+    axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&i=' + movieId)
+        .then((response) => {
+            console.log(response);
+            var movie = response.data;
+
+            var output = `
+                <div class = "row>
+                    <div class="col-md-4">
+                        <img src="${movie.Poster}" class="thumbnail">
+                    </div>
+                    
+                    <div class="col-md-8>
+                        <h2>${movie.Title}</h2>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Genre:</strong>${movie.Genre}</li>
+                            <li class="list-group-item"><strong>Released:</strong>${movie.Released}</li>
+                            <li class="list-group-item"><strong>Rated:</strong>${movie.Rated}</li>
+                            <li class="list-group-item"><strong>IMDB Rating:</strong>${movie.imdbRating}</li>
+                            <li class="list-group-item"><strong>Director:</strong>${movie.Director}</li>
+                            <li class="list-group-item"><strong>Writer:</strong>${movie.Writer}</li>
+                            <li class="list-group-item"><strong>Actors:</strong>${movie.Actors}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="well">
+                        <h3>Plot</h3>
+                        ${movie.Plot}
+                        <hr>
+                        <a href ="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
+                        <a href="index.html" class="btn btn-default">Go Back To Search</a>
+                    </div>
+                </div>
+            `;
+            $('#movie').html(output);
+        }).catch((err) => {
+            console.log(err);
+        });
+}
