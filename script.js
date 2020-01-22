@@ -102,8 +102,22 @@ $(document).ready(function(){
 
     })
   }
-  //googleBooks();
+  //Music API 
+  function musicCall(){
+    var query = ''; 
+    var apiKey = 'app_id=codingbootcamp';
+    var url = '"https://rest.bandsintown.com/artists/" '
+    var queryURL = url+query+apiKey
+    $.ajax({
+      url: '',
+      method: "GET"
+    }).then(function(response) { 
+  
+  
+    })
+}
 
+  
 
   //event call------------------------------------------------------> 
   $('.start-button').click(function(event){
@@ -127,12 +141,13 @@ $(document).ready(function(){
       url: weatherQueryURL,
       method: "GET"
     }).then(function(response) {
-     // console.log(response);
+      console.log(response);
+
       name = response.name;
       wind = response.wind.speed;
       temp = response.main.temp;
       main = response.weather[0].main;
-      
+      icon = response.weather[0].icon; 
       console.log(typeof wind); 
       var goodWeather; 
       if(main === 'Clear' && temp > 50 && wind < 15){
@@ -147,42 +162,47 @@ $(document).ready(function(){
       var sadButton = document.getElementById('sad-button');
       happyButton.onclick = function(){
         submitButton.style.display = 'none';
-        happyLogic(goodWeather);
+        happyLogic(goodWeather,icon);
         }
         //console.log('happy');  
       sadButton.onclick = function (){
         submitButton.style.display = 'none';
-        sadLogic(goodWeather); 
+        sadLogic(goodWeather,icon); 
         }
       })
     }
 
    //Game Logic ---------------------------------------
-  function happyLogic(goodWeather){
+  function happyLogic(goodWeather, icon){
     var happy = true; 
    // console.log('happy');
     if(goodWeather){
       //Go to park when happy and weather good
       parkCall(); 
     }else{
-      //Book when happy and weather is bad
-       googleBooks();
+      //Happy Tunes when happy and weather is bad
+     // movieCall();
+     // musicCall(); 
     }
   }
   ///RElaxed 
-  function sadLogic(goodWeather){
+  function sadLogic(goodWeather, icon){
     var sad = true; 
     console.log('relax'); 
-    if(goodWeather){
+    if(!goodWeather){
       //Restaurant when relaxed and weather is good
-      geoCodingAPI(); 
+      geoCodingAPI(icon); 
     }else{
+      // when weather is bad and relaxedmovieCall();
+
+      googleBooks();
+
      // when weather is bad and relaxedmovieCall();
     }
   }
 
 //modal
-//Rendering Information 
+//Rendering Information---------------------------------------------------------
 //Park rendering information 
 function renderPark(parkInfo){
   console.log('park call -1');
@@ -193,43 +213,54 @@ function renderPark(parkInfo){
   console.log(parkInfo.length);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  containerForm.innerHTML += `<div class="display-info-div "></div>`
   var infoDiv = document.querySelector('.display-info-div');
   console.log(parkDiv)
   for(var i = 0; i < parkInfo.length; i++){
     infoDiv.innerHTML += `<p class="park-info">${parkInfo[i]}</p>'`
     }
   }
-  
+  //---------------------------------------------------------------------------
   function renderBooks(bookInfo){
     console.log('park call -1');
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
+
   //console.log(parkInfo);
   console.log(bookInfo.length);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
+
   containerForm.innerHTML += `<div class="display-info-div"></div>`
   var infoDiv = document.querySelector('.display-info-div');
   for(var i = 0; i < bookInfo.length; i++){
     infoDiv.innerHTML += `<p class="info">${bookInfo[i]}</p>'`
     }
+  
   }
+
+  //-------------------------------------------------------------------------------
   function renderRestaurant(restaurantInfo){
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
+
   console.log(restaurantInfo);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
   containerForm.innerHTML += `<div class="display-info-div"></div>`
   var infoDiv = document.querySelector('.display-info-div');
-  
+  var weather = document.createElement('img');
+  weather.setAttribute('src','https://s7d2.scene7.com/is/image/TWCNews/1031_nc_sunny_weather_2-1');
+  weather.classList.add('sun-image');
+  infoDiv.appendChild(weather);
+
   for(var i = 0; i < restaurantInfo.length; i++){
     if(i === 3){
       var image = document.createElement(`img`);
       image.setAttribute('src',restaurantInfo[i]);
+  
       console.log(restaurantInfo[i]); 
 
       infoDiv.appendChild(image);
@@ -237,9 +268,12 @@ function renderPark(parkInfo){
       //infoDiv.appendChild(`<img src='${restaurantInfo[i]}'>`);
       break; 
     }
-    infoDiv.innerHTML += `<p class='info'>${restaurantInfo[i]}</p>'`
+    infoDiv.innerHTML += `<p class='search-info'>${restaurantInfo[i]}</p>'`
     }
   }
+
+
+
 
 
 
@@ -258,7 +292,7 @@ function renderPark(parkInfo){
   modal.style.display = 'block';
   var city = document.getElementById('city').value.trim(); 
   //geoCodingAPI(); 
-  //console.log(city); 
+  console.log(city); 
   weatherCall(city); 
 
   }
@@ -279,6 +313,13 @@ function renderPark(parkInfo){
   }
 
 })
+
+
+
+
+
+
+
 
 
 

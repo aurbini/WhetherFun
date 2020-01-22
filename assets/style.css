@@ -5,3 +5,6 @@ p {
 .modal {
   display: none; 
 }
+.sun-image {
+  height: 150px;
+}
