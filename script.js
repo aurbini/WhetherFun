@@ -1,4 +1,3 @@
-
 //Use geoCoding api 
 $(document).ready(function(){
   //API CAlls---------------------------------------------------------------------
@@ -202,6 +201,33 @@ var
 
 
 
+   //Game Logic ---------------------------------------
+  function happyLogic(goodWeather){
+    var happy = true; 
+   // console.log('happy');
+    if(goodWeather){
+      //Go to park when happy and weather good
+      parkCall(); 
+    }else{
+      //Book when happy and weather is bad
+       googleBooks();
+    }
+  }
+  ///RElaxed 
+  function sadLogic(goodWeather){
+    console.log(goodWeather)
+  //  var sad = true; 
+    console.log('relax'); 
+    if(goodWeather){
+      //Restaurant when relaxed and weather is good
+      geoCodingAPI(); 
+    }else{
+      getMovies();
+    }
+  }
+
+
+
 
 
 
@@ -242,7 +268,7 @@ var
     }
   }
 
-})
+
 
 
 
@@ -394,26 +420,38 @@ var
   // $('#happy-button').click(function(){
   //   //containerForm.innerHTML = '';
 
-});
+
+  // })
 
 //---------------------------------------------------------------------------------------------------//
-$(document).ready(() => {
+
+=======
+
     $('#searchForm').on('submit', (e) => {
         var searchText = $('#searchText').val();
         getMovies(searchText);
         e.preventDefault();
     });
-});
+
+
 
 function getMovies(searchText) {
-    console.log(searchText);
+//console.log(searchText);
     axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&s=' + searchText)
         .then((response) => {
+
+=======
+
             console.log(response);
             var movies = response.data.Search;
             var output = '';
             $.each(movies, (index, movie) => {
+
+
                 output += `
+
+                
+
                     <div class = "col-md-3">
                         <div class="well text-center">
                             <img src="${movie.Poster}">
@@ -476,4 +514,8 @@ function getMovie() {
         }).catch((err) => {
             console.log(err);
         });
+
 }
+})
+=======
+
