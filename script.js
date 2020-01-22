@@ -2,7 +2,8 @@
 //Use geoCoding api 
 $(document).ready(function(){
   //API CAlls---------------------------------------------------------------------
-
+  var userLat; 
+  var userLon; 
   function geoCodingAPI (){
     var street = document.getElementById('street').value.trim() + ','; 
     var city = document.getElementById('city').value.trim() + ','; 
@@ -13,26 +14,23 @@ $(document).ready(function(){
      var queryUrl = `https://api.opencagedata.com/geocode/v1/json?q=${street}${city}${state}${zipcode}${country}&key=${apiKey}`;
 
     $.ajax({
-      url:  queryUrl ,
-
+      url:  queryUrl,
       method: "GET"
     }).then(function(response) {
      // console.log(response.results); 
       console.log(response); 
-      var userLat = response.results[0].geometry.lat;
-      var userLon = response.results[0].geometry.lng;
-      parkCall(userLat, userLon,state); 
-      console.log(`User Lat = ${userLat},  User lon = ${userLon}`); 
+      userLat = response.results[0].geometry.lat;
+      userLon = response.results[0].geometry.lng;
+
       zomatoCall(userLat, userLon); 
-      })
-    }
+    })
+  }
+    //Zomato API 
+    function zomatoCall (lat, lon){
 
-  //Zomato API 
-  function zomatoCall (lat, lon){
-
-  var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
-  var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}&start=0&count=20`
-  $.ajax({
+    var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
+    var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}&start=0&count=20`
+    $.ajax({
     method: "GET",
     url: queryURL,
     crossDomain: true,
@@ -41,7 +39,10 @@ $(document).ready(function(){
     headers: {
       "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
         }, success: function(data){
-      var randomRestaurant = Math.floor(Math.random(data.nearby_restaurants.length + 1))
+      console.log(data.nearby_restaurants.length);
+      console.log(data.nearby_restaurants);
+      var randomRestaurant = Math.floor(Math.random() * data.nearby_restaurants.length + 1)
+      console.log(randomRestaurant);
       var restName = data.nearby_restaurants[randomRestaurant].restaurant.name;
       var restLocation = data.nearby_restaurants[randomRestaurant].restaurant.location.address;
       var restCuisine = data.nearby_restaurants[randomRestaurant].restaurant.cuisines; 
@@ -52,8 +53,7 @@ $(document).ready(function(){
   } 
 
   function parkCall(userLat, userLon, state){
-    var query = state; 
-    //document.getElementById('state').value.trim();
+    var query = document.getElementById('state').value.trim();
     var apiKey = 'TxE6rx6hQUOue3edfK0WYCJqyrot1uDhW1KRLBvd';
     var URL = 'https://developer.nps.gov/api/v1/parks?';
     var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
@@ -62,11 +62,20 @@ $(document).ready(function(){
         method: "GET"
       }).then(function(response) {  
         var randomPark = Math.floor(Math.random(response.data.length ))
-        console.log(response.data);
-        console.log(response.data[randomPark]);
-        console.log(response.data[randomPark].name);
-        console.log(response.data[randomPark].description);
-        // // console.log(response.data[0].latLong.split(","));
+        //console.log(response.data);
+        //var parkName = response.data[randomPark];
+        var parkDescription = response.data[randomPark].name;
+        var parkName = response.data[randomPark].description;
+        
+        //INFO TO BE DISPLAYED
+        console.log(parkDescription);
+        console.log(parkName); 
+        //var displayParkName = createElement("p");
+        //renderParkDisplay();
+      })
+    }
+      
+        //console.log(response.data[0].latLong.split(","));
 
         // var parkLat; 
         // var parkLon; 
@@ -96,39 +105,36 @@ $(document).ready(function(){
         //       console.log(response.data[0].name)
         //     }
          // }
-         })
-      }
-//Click Event for Modam------------------->
-$('#sad-button').click(function(){
-  $('.modal').addClass('modal')
-})
+      
+    
+  //Click Event for Modam------------------->
+  // $('#sad-button').click(function(){
+  //   $('.modal').addClass('modal')
+  // })
 
-$('#happy-button').click(function(){
-   
-})
+  // $('#happy-button').click(function(){
+  //   //containerForm.innerHTML = '';
 
-function googleBooks(){
-  var query = 'flowers+inauthor:'; 
-  var apiKey = 'key=AIzaSyAFxlv3833hPBkescVH_W-BiCVlOlKp_Rs';
-  var url = 'https://www.googleapis.com/books/v1/volumes?q='
-  var queryURL = url+query+apiKey
-  $.ajax({
-    url: 'https://www.googleapis.com/books/v1/volumes?q=comedy+subjects&maxResults=40'
-    ,
-    method: "GET"
-  }).then(function(response) { 
-    var randomBook = Math.floor(Math.random()*response.items.length)
-    console.log(`Google Books APi = ${response}`)
-    console.log(response.items[randomBook].volumeInfo.title); 
-    console.log(response.items[randomBook].volumeInfo.description);
-    console.log(response.items[randomBook].volumeInfo.imageLinks.smallThumbnail);
+  // })
+
+  function googleBooks(){
+    var query = 'flowers+inauthor:'; 
+    var apiKey = 'key=AIzaSyAFxlv3833hPBkescVH_W-BiCVlOlKp_Rs';
+    var url = 'https://www.googleapis.com/books/v1/volumes?q='
+    var queryURL = url+query+apiKey
+    $.ajax({
+      url: 'https://www.googleapis.com/books/v1/volumes?q=funny+subjects&maxResults=40',
+      method: "GET"
+    }).then(function(response) { 
+      var randomBook = Math.floor(Math.random()*response.items.length)
+      //console.log(`Google Books APi = ${response}`)
+      console.log(response.items); 
+      var title = response.items[randomBook].volumeInfo.title; 
+      var description = response.items[randomBook].volumeInfo.description;
+      console.log(`book title: ${title}, book description: ${description}`); 
     })
-}
-googleBooks();
-
-
-
-
+  }
+  //googleBooks();
 
 
   //event call------------------------------------------------------> 
@@ -139,173 +145,74 @@ googleBooks();
 
     renderMoodDisplay();
   })
-
+  var name; 
+  var wind; 
+  var temp;
+  var main; 
 
   function weatherCall(city){
+    console.log(city);
     var query = city
     var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
     var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
     $.ajax({
-        url: weatherQueryURL,
-        method: "GET"
+      url: weatherQueryURL,
+      method: "GET"
     }).then(function(response) {
-        console.log(response);
-        var name = response.name;
-        var wind = response.wind.speed;
-        var temp = response.main.temp;
-        var main = response.weather[0].main;
-        console.log(name, wind, temp, main)
-        console.log(main);
-
-
-
-    // $('#city').html('<div>' + response.name + '</div>');
-    // $('#state').html('<div>' + response.name + '</div>');
-    // $('#zipcode').html('<div>' + response.zipcode + '</div>');
-    // $('#country').html('<div>' + response.name + '</div>');
-    // $('wind').text("Wind Speed: " + response.wind.speed);
-    // $('humidity').text("Humidity: " + response.main.humidity);
-    // $('temp').text('Temperature(F) ' + response.main.temp);
-    // var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-    // $('tempF').text('Temperature (Kelvin)' + tempF);
-    // console.log("Wind Speed: " + response.wind.speed);
-    // console.log("Humidity: " + response.main.humidity);
-    // console.log("Temperature (F): " + response.main.temp);
-    // });
-  })
-}
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      console.log(response);
+      name = response.name;
+      wind = response.wind.speed;
+      temp = response.main.temp;
+      main = response.weather[0].main;
+      console.log(main); 
+      var badWeather; 
+      var goodWeather; 
+      if(main === 'Clear'){
+        //console.log('goodweather')
+        goodWeather = true; 
+      }else {
+        badWeather = true; 
+      }
+      //console.log(name, wind, temp, main)
+      //console.log(main);
+      var happyButton = document.getElementById('happy-button') 
+      var sadButton = document.getElementById('sad-button');
+      happyButton.onclick = function(){
+        submitButton.style.display = 'none';
+        happyLogic(goodWeather,badWeather);
+        }
+        //console.log('happy');  
+      sadButton.onclick = function (){
+        submitButton.style.display = 'none';
+        sadLogic(goodWeather, badWeather); 
+        }
+      })
+    }
+
+   
+  function happyLogic(goodWeather, badWeather){
+    var happy = true; 
+    console.log('happy');
+    if(!goodWeather){
+      parkCall(); 
+    }else{
+      googleBooks();
+    }
+  }
+
+
+  function sadLogic(goodWeather,badWeather){
+    var sad = true; 
+    console.log('sad'); 
+    if(goodWeather){
+      geoCodingAPI(); 
+    }else{
+     // movieCall();
+    }
+  }
 
   //modal
+
   var button = document.getElementById('sub');
   var modal = document.getElementById('page-modal');
   var close = document.getElementsByClassName('modal-close')[0]
@@ -315,31 +222,13 @@ googleBooks();
   var sadButton = document.getElementById('sad-button');
   var submitButton = document.getElementById('submit-button');
 
-  happyButton.onclick = function (){
-      submitButton.style.display = 'none';
-  }
-  sadButton.onclick = function (){
-    submitButton.style.display = 'none';
-
-}
 
   button.onclick = function(){
   modal.style.display = 'block';
-  var city = document.getElementById('city').value.trim() + ','; 
-  geoCodingAPI(); 
+  var city = document.getElementById('city').value.trim(); 
+  //geoCodingAPI(); 
+  //console.log(city); 
   weatherCall(city); 
-  containerForm.innerHTML = '';
-
-  
-  //$('.container').empty(); 
-  //renderLibrary();
-  // while(containerForm.firstChild){
-  //   containerForm.removeChild(containerForm.firstChild);
-  // }
-  // while(submitButton.firstChild){
-  //   submitButton.removeChild(submitButton.firstChild);
-  // }
-  //submitButton.style.display = 'none';
 
   }
 
@@ -353,16 +242,28 @@ googleBooks();
 
   //closing the dark space around the modal background
   window.onclick = function(event){
-    if (event.target.className == 'modal-background'){
+    if(event.target.className === 'modal-background'){
       modal.style.display = 'none';
     }
-
   }
 
-
-
-
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -401,3 +302,29 @@ googleBooks();
 
 
 //////--------------------------------------------------------------
+
+
+    // $('#city').html('<div>' + response.name + '</div>');
+    // $('#state').html('<div>' + response.name + '</div>');
+    // $('#zipcode').html('<div>' + response.zipcode + '</div>');
+    // $('#country').html('<div>' + response.name + '</div>');
+    // $('wind').text("Wind Speed: " + response.wind.speed);
+    // $('humidity').text("Humidity: " + response.main.humidity);
+    // $('temp').text('Temperature(F) ' + response.main.temp);
+    // var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+    // $('tempF').text('Temperature (Kelvin)' + tempF);
+    // console.log("Wind Speed: " + response.wind.speed);
+    // console.log("Humidity: " + response.main.humidity);
+    // console.log("Temperature (F): " + response.main.temp);
+    // });
+
+
+      //$('.container').empty(); 
+  //renderLibrary();
+  // while(containerForm.firstChild){
+  //   containerForm.removeChild(containerForm.firstChild);
+  // }
+  // while(submitButton.firstChild){
+  //   submitButton.removeChild(submitButton.firstChild);
+  // }
+  //submitButton.style.display = 'none';
