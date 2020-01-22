@@ -193,7 +193,7 @@ function renderPark(parkInfo){
   console.log(parkInfo.length);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  containerForm.innerHTML += `<div class="display-info-div has-background"></div>`
   var infoDiv = document.querySelector('.display-info-div');
   console.log(parkDiv)
   for(var i = 0; i < parkInfo.length; i++){
