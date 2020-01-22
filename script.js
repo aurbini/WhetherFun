@@ -11,7 +11,6 @@ $(document).ready(function(){
     var country = document.getElementById('country').value.trim()  + ','; 
     var apiKey = 'b779461f362d4375b7fe76ba33e12e1f';
      var queryUrl = `https://api.opencagedata.com/geocode/v1/json?q=${street}${city}${state}${zipcode}${country}&key=${apiKey}`;
-
     $.ajax({
       url:  queryUrl,
       method: "GET"
@@ -20,13 +19,11 @@ $(document).ready(function(){
       console.log(response); 
       userLat = response.results[0].geometry.lat;
       userLon = response.results[0].geometry.lng;
-
       zomatoCall(userLat, userLon); 
     })
   }
     //Zomato API 
     function zomatoCall (lat, lon){
-
     var apiKey= '9be8eb8bb66ec64005c8cc43793d3c60'
     var queryURL = `https://developers.zomato.com/api/v2.1/geocode?lat=${lat}&lon=${lon}&start=0&count=20`
     $.ajax({
@@ -53,7 +50,6 @@ $(document).ready(function(){
       }
     })
   } 
-
   function parkCall(userLat, userLon, state){
     var query = document.getElementById('state').value.trim();
     var apiKey = 'TxE6rx6hQUOue3edfK0WYCJqyrot1uDhW1KRLBvd';
@@ -68,19 +64,15 @@ $(document).ready(function(){
         //var parkName = response.data[randomPark];
         var parkDescription = response.data[randomPark].name;
         var parkName = response.data[randomPark].description;
-        
         //INFO TO BE DISPLAYED
         //console.log(parkDescription);
         //console.log(parkName); 
         var parkInfo = [parkDescription, parkName]; 
         console.log(parkInfo);
         //var displayParkName = createElement("p");
-        
         renderPark(parkInfo);
       })
     }
-  
-
   function googleBooks(){
     var query = 'flowers+inauthor:'; 
     var apiKey = 'key=AIzaSyAFxlv3833hPBkescVH_W-BiCVlOlKp_Rs';
@@ -98,30 +90,33 @@ $(document).ready(function(){
      // console.log(`book title: ${title}, book description: ${description}`); 
       var bookInfo = [title, description,];
       renderBooks(bookInfo);
-
     })
   }
-  //Music API 
- 
-
-
-
-function movieTheatre() {
-    var query = 'ny';
-    var apiKey = 'qbrg7qrtgv798gkj8f8gkgdk';
-    var URL = 'http://data.tmsapi.com/v1.1/movies/showings?startDate=2020-01-20&zip=78701&api_key=qbrg7qrtgv798gkj8f8gkgdk';
-    var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
+  //googleBooks();
+  //event call------------------------------------------------------> 
+  $('.start-button').click(function(event){
+    event.preventDefault();
+    //console.log('buttton')
+    renderMoodDisplay();
+  })
+  var name; 
+  var wind; 
+  var temp;
+  var main; 
+  function weatherCall(city){
+   // console.log(city);
+    var query = city
+    var apiKey = '8510c14918232716bc9743d7f1fc2f0c'
+    var weatherQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=` +apiKey+'&units=imperial'
     $.ajax({
-      //url: weatherQueryURL,
+      url: weatherQueryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
-
+     // console.log(response);
       name = response.name;
       wind = response.wind.speed;
       temp = response.main.temp;
       main = response.weather[0].main;
-      icon = response.weather[0].icon; 
       console.log(typeof wind); 
       var goodWeather; 
       if(main === 'Clear' && temp > 50 && wind < 15){
@@ -136,92 +131,15 @@ function movieTheatre() {
       var sadButton = document.getElementById('sad-button');
       happyButton.onclick = function(){
         submitButton.style.display = 'none';
-        happyLogic(goodWeather,icon);
+        happyLogic(goodWeather);
         }
         //console.log('happy');  
       sadButton.onclick = function (){
         submitButton.style.display = 'none';
-        sadLogic(goodWeather,icon); 
+        sadLogic(goodWeather); 
         }
       })
-     }
-     //movieTheatre();
-  //----------------------------------------------------------------------------------//
-  var submit;
-  var city;
-  var state;
-  var zipcode;
-  var country;
-  var APIkey = '&appid=559ef9ee4eef6c921d74471722ef2949';
-  var weatherAPI = 'https://api.openweathermap.org/data/2.5/weather?';
-  var forecastAPI = 'https://api.openweathermap.org/data/2.5/forecast?q=';
-  var units = '&units=imperial';
-
-
-
-
-//declearing gloabl variables. Display Movies based on sad and happy mood. 
-//var movieTheatre
-//var sadMood = 
-//var happyMood = 
-//var sadbtn = 
-//var happybtn =
-
-//Once sad or happy button clicked the screen will display the comedy or action movies 
-//$(document).ready(function() {
-
-    //function weather() {
-    //var city =
-   // var state =
-   // var zipCode =
-   // var country =
-   // var temperature =
-   // var apiKey = '&appid=559ef9ee4eef6c921d74471722ef2949&units=imperial';
-   // var weatherApi = 'http://api.openweathermap.org/data/2.5/weather?q=';
-  //  weather()
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Declearing global variables. Dispay weather information along with movie list.
-//var city =
-//var zipCode =
-//var street =
-//var state =
-//var country =
-//var temperature =
-//var humidity =
-//var  windspeed =
-//var uvIndex =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
    //Game Logic ---------------------------------------
   function happyLogic(goodWeather){
     var happy = true; 
@@ -230,9 +148,8 @@ function movieTheatre() {
       //Go to park when happy and weather good
       parkCall(); 
     }else{
-      //Happy Tunes when happy and weather is bad
-     // movieCall();
-     // musicCall(); 
+      //Book when happy and weather is bad
+       googleBooks();
     }
   }
   ///RElaxed 
@@ -240,189 +157,108 @@ function movieTheatre() {
     console.log(goodWeather)
   //  var sad = true; 
     console.log('relax'); 
-    if(!goodWeather){
+    if(goodWeather){
       //Restaurant when relaxed and weather is good
-      geoCodingAPI(icon); 
+      geoCodingAPI(); 
     }else{
-      // when weather is bad and relaxedmovieCall();
-
-      googleBooks();
-
-     // when weather is bad and relaxedmovieCall();
+      getMovies();
     }
   }
-
 //modal
-//Rendering Information---------------------------------------------------------
+//Rendering Information 
 //Park rendering information 
 function renderPark(parkInfo){
-  console.log('park call -1');
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
-  console.log(parkInfo);
-  console.log(parkInfo.length);
-  // var parkDiv = document.createElement('<div>');
-  // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div "></div>`
+  containerForm.innerHTML += `<div class="display-info-div has-background"></div>`
   var infoDiv = document.querySelector('.display-info-div');
-  console.log(parkDiv)
+  //var heading = document.createElement('<h3>How about you go to a Park on this nice day!</h3>')
+  //infoDiv.appendChild(heading);
+  var weather = document.createElement('img');
+  weather.setAttribute('src','https://s7d2.scene7.com/is/image/TWCNews/1031_nc_sunny_weather_2-1');
+  weather.classList.add('sun-image');
+  infoDiv.appendChild(weather);
+  //var heading = document.createElement('<h3>How about you go to a Park on this nice day!</h3>')
+  //infoDiv.appendChild(heading);
   for(var i = 0; i < parkInfo.length; i++){
     infoDiv.innerHTML += `<p class="park-info">${parkInfo[i]}</p>'`
     }
   }
-  //---------------------------------------------------------------------------
+  //---------------------------------------------------------------
   function renderBooks(bookInfo){
-    console.log('park call -1');
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
-
-  //console.log(parkInfo);
-  console.log(bookInfo.length);
+ // console.log(bookInfo.length);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
-
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
+  containerForm.innerHTML += `<div class="display-books-div"></div>`
+  var infoDiv = document.querySelector('.display-books-div');
+  var weather = document.createElement('img');
+  weather.setAttribute('src','https://images.pexels.com/photos/459451/pexels-photo-459451.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+  weather.classList.add('rain-image');
+  infoDiv.appendChild(weather);
   for(var i = 0; i < bookInfo.length; i++){
-    infoDiv.innerHTML += `<p class="info">${bookInfo[i]}</p>'`
+    infoDiv.innerHTML += `<p class="books-info">${bookInfo[i]}</p>'`
     }
-  
   }
-
-  //-------------------------------------------------------------------------------
   function renderRestaurant(restaurantInfo){
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
-
   console.log(restaurantInfo);
   // var parkDiv = document.createElement('<div>');
   // console.log(parkDiv); 
-  containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-info-div');
   var weather = document.createElement('img');
   weather.setAttribute('src','https://s7d2.scene7.com/is/image/TWCNews/1031_nc_sunny_weather_2-1');
   weather.classList.add('sun-image');
+
+
+  containerForm.innerHTML += `<div class="display-info-div"></div>`
+  var infoDiv = document.querySelector('.display-info-div');
   infoDiv.appendChild(weather);
 
   for(var i = 0; i < restaurantInfo.length; i++){
     if(i === 3){
       var image = document.createElement(`img`);
       image.setAttribute('src',restaurantInfo[i]);
-  
+      image.classList.add('rest-image');
       console.log(restaurantInfo[i]); 
-
-
+      infoDiv.appendChild(image);
       //infoDiv.appendChild(`<img src='${restaurantInfo[i]}'>`);
       break; 
     }
-    infoDiv.innerHTML += `<p class='search-info'>${restaurantInfo[i]}</p>'`
+    infoDiv.innerHTML += `<p class='info'>${restaurantInfo[i]}</p>'`
     }
   }
-
-
-
-
-
-
 
   var button = document.getElementById('sub');
   var modal = document.getElementById('page-modal');
   var close = document.getElementsByClassName('modal-close')[0]
   var containerForm = document.getElementById('main-content'); 
-
   var happyButton = document.getElementById('happy-button') 
   var sadButton = document.getElementById('sad-button');
   var submitButton = document.getElementById('submit-button');
-
-
   button.onclick = function(){
   modal.style.display = 'block';
   var city = document.getElementById('city').value.trim(); 
   //geoCodingAPI(); 
-  console.log(city); 
+  //console.log(city); 
   weatherCall(city); 
-
   }
-
-
-
   //closing the modal x button
   close.onclick = function(){
   modal.style.display = 'none';
   //$('.container').empty(); 
   }
-
   //closing the dark space around the modal background
   window.onclick = function(event){
     if(event.target.className === 'modal-background'){
       modal.style.display = 'none';
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //books
-
-
 // function openlibAPI(){
 //   var apiKey = ''
 //   var queryURL = `http://openlibrary.org/subjects/humour.json?details=true`
@@ -436,25 +272,13 @@ function renderPark(parkInfo){
 //     // console.log(response.works[0].availability.status); 
 //     // console.log(response.works[0].title); 
 //     // console.log(response.works[0]); 
-
 //     })
 //   }
-
 // function renderLibrary (){
 //   document.getElementsByID('main-content').innerHTML = '';
-
   // }
  // openlibAPI();
-
-
-
-
-
-
-
 //////--------------------------------------------------------------
-
-
     // $('#city').html('<div>' + response.name + '</div>');
     // $('#state').html('<div>' + response.name + '</div>');
     // $('#zipcode').html('<div>' + response.zipcode + '</div>');
@@ -468,8 +292,6 @@ function renderPark(parkInfo){
     // console.log("Humidity: " + response.main.humidity);
     // console.log("Temperature (F): " + response.main.temp);
     // });
-
-
       //$('.container').empty(); 
   //renderLibrary();
   // while(containerForm.firstChild){
@@ -479,8 +301,6 @@ function renderPark(parkInfo){
   //   submitButton.removeChild(submitButton.firstChild);
   // }
   //submitButton.style.display = 'none';
-
-      
         //console.log(response.data[0].latLong.split(","));
 //Trying to get park lat and lon to compare 
         // var parkLat; 
@@ -503,7 +323,6 @@ function renderPark(parkInfo){
         //       parkLon = cordinatesLon.slice([i +1])
         //       parkLon = parseInt(parkLon)
         //       //console.log(parkLon);
-
         //     }
         //   }
         //   //console.log(parkLon); 
@@ -511,46 +330,28 @@ function renderPark(parkInfo){
         //       console.log(response.data[0].name)
         //     }
          // }
-      
-    
   //Click Event for Modam------------------->
   // $('#sad-button').click(function(){
   //   $('.modal').addClass('modal')
   // })
-
   // $('#happy-button').click(function(){
   //   //containerForm.innerHTML = '';
-
-
   // })
-
 //---------------------------------------------------------------------------------------------------//
-
-
     $('#searchForm').on('submit', (e) => {
         var searchText = $('#searchText').val();
         getMovies(searchText);
         e.preventDefault();
     });
-
-
-
 function getMovies(searchText) {
 //console.log(searchText);
     axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&s=' + searchText)
         .then((response) => {
-
-
             console.log(response);
             var movies = response.data.Search;
             var output = '';
             $.each(movies, (index, movie) => {
-
-
                 output += `
-
-                
-
                     <div class = "col-md-3">
                         <div class="well text-center">
                             <img src="${movie.Poster}">
@@ -565,27 +366,22 @@ function getMovies(searchText) {
             console.log(err);
         });
 }
-
 function movieSelected(id) {
     sessionStorage.setItem('imdbID', id);
     window.location = 'movie.html';
     return false;
 }
-
 function getMovie() {
     var movieId = sessionStorage.getItem('imdbID');
-
     axios.get('http://www.omdbapi.com/?i=tt3896198&apikey=b489d0e' + '&i=' + movieId)
         .then((response) => {
             console.log(response);
             var movie = response.data;
-
             var output = `
                 <div class = "row>
                     <div class="col-md-4">
                         <img src="${movie.Poster}" class="thumbnail">
                     </div>
-                    
                     <div class="col-md-8>
                         <h2>${movie.Title}</h2>
                         <ul class="list-group">
@@ -613,6 +409,5 @@ function getMovie() {
         }).catch((err) => {
             console.log(err);
         });
-
 }
 })

@@ -8,9 +8,19 @@ p {
 .sun-image {
   height: 150px;
 }
+.rain-image {
+  height: 150px;
+}
 
 .display-info-div {
   background-color: azure;
-
+  display: flex; 
 }
-
+.display-books-div {
+  background-color: azure;
+  display: flex; 
+  flex-direction: column;
+}
+.rest-image {
+  height: 150px; 
+}
