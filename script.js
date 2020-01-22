@@ -39,7 +39,10 @@ $(document).ready(function(){
     headers: {
       "user-key": "0a661374a6b58eb2fa84142d27fe81ca"
         }, success: function(data){
-      var randomRestaurant = Math.floor(Math.random(data.nearby_restaurants.length + 1))
+      console.log(data.nearby_restaurants.length);
+      console.log(data.nearby_restaurants);
+      var randomRestaurant = Math.floor(Math.random() * data.nearby_restaurants.length + 1)
+      console.log(randomRestaurant);
       var restName = data.nearby_restaurants[randomRestaurant].restaurant.name;
       var restLocation = data.nearby_restaurants[randomRestaurant].restaurant.location.address;
       var restCuisine = data.nearby_restaurants[randomRestaurant].restaurant.cuisines; 
@@ -59,13 +62,19 @@ $(document).ready(function(){
         method: "GET"
       }).then(function(response) {  
         var randomPark = Math.floor(Math.random(response.data.length ))
-        console.log(response.data);
+        //console.log(response.data);
         //var parkName = response.data[randomPark];
-        var parkDescription = response.data[randomPark].name);
-        var parkName = response.data[randomPark].description);
-
-
+        var parkDescription = response.data[randomPark].name;
+        var parkName = response.data[randomPark].description;
         
+        //INFO TO BE DISPLAYED
+        console.log(parkDescription);
+        console.log(parkName); 
+        //var displayParkName = createElement("p");
+        //renderParkDisplay();
+      })
+    }
+      
         //console.log(response.data[0].latLong.split(","));
 
         // var parkLat; 
@@ -96,8 +105,8 @@ $(document).ready(function(){
         //       console.log(response.data[0].name)
         //     }
          // }
-         })
-      }
+      
+    
   //Click Event for Modam------------------->
   // $('#sad-button').click(function(){
   //   $('.modal').addClass('modal')
@@ -114,14 +123,15 @@ $(document).ready(function(){
     var url = 'https://www.googleapis.com/books/v1/volumes?q='
     var queryURL = url+query+apiKey
     $.ajax({
-      url: 'https://www.googleapis.com/books/v1/volumes?q=comedy+subjects&maxResults=40'
-      ,
+      url: 'https://www.googleapis.com/books/v1/volumes?q=funny+subjects&maxResults=40',
       method: "GET"
     }).then(function(response) { 
       var randomBook = Math.floor(Math.random()*response.items.length)
-      console.log(`Google Books APi = ${response}`)
+      //console.log(`Google Books APi = ${response}`)
+      console.log(response.items); 
       var title = response.items[randomBook].volumeInfo.title; 
       var description = response.items[randomBook].volumeInfo.description;
+      console.log(`book title: ${title}, book description: ${description}`); 
     })
   }
   //googleBooks();
@@ -172,7 +182,7 @@ $(document).ready(function(){
         happyLogic(goodWeather,badWeather);
         }
         //console.log('happy');  
-        sadButton.onclick = function (){
+      sadButton.onclick = function (){
         submitButton.style.display = 'none';
         sadLogic(goodWeather, badWeather); 
         }
@@ -183,21 +193,21 @@ $(document).ready(function(){
   function happyLogic(goodWeather, badWeather){
     var happy = true; 
     console.log('happy');
-    if(goodWeather){
+    if(!goodWeather){
       parkCall(); 
     }else{
-      geoCodingAPI(); 
+      googleBooks();
     }
   }
 
 
-  function sadLogic(temp){
+  function sadLogic(goodWeather,badWeather){
     var sad = true; 
     console.log('sad'); 
-    if(temp > 40){
-      googleBooks(); 
+    if(goodWeather){
+      geoCodingAPI(); 
     }else{
-      movieCall();
+     // movieCall();
     }
   }
 
