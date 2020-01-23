@@ -477,3 +477,28 @@ function getMovie() {
             console.log(err);
         });
 }
+//------------------------------------------------------------------------------------------------//
+var movies = ["Scrooged", "Groundhog Day", "Friday", "Ted", "Zombieland", "The Nutty Professor", " The Truman Show", "Fear and Loathing in Las Vegas", "The Waterboy", "American Pie", " Bad Boys", " Bad Boys", "Bruce Almighty", "The Longest Yard", "The Bucket List", "Tropic Thunder", " Big Momma's House", "Movie 43", "22 Jump Street", "Central Intelligence"];
+    
+function displayMovieInfo() {
+var movie = movies[Math.floor(Math.random()*movies.length)];
+console.log(movie);
+var queryURL = "http://www.omdbapi.com/?t="+movie+"&apikey=b489d0e" ;
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        console.log(response)
+       // var movieDiv = $('<div class="movie-info">');//
+        var title = $('<p>').text(`Title: ${response.Title}`);
+        var rating = $('<p>').text(`Rating: ${response.Rated}`);
+        var release = $('<p>').text(`Released: ${response.Released}`);
+        var plot = $('<p>').text(`Plot: ${response.Plot}`);
+        var image = $('<img>').attr('src', response.Poster);
+                //movieDiv.append(title,rating, release, plot, image);//
+                //$('#movies-view').append(movieDiv);//
+        var movieInfo = [title, rating, release, plot, image];
+        renderMovies(movieInfo);         
+    })
+}
+displayMovieInfo();
