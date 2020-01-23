@@ -7,184 +7,164 @@
   <title>WhetherFun</title>
   <link rel="stylesheet" href="./assets/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
-   <style>
+  <style>
    
 
-      /* @media (max-width: 1024px) {.hero {background:url(assets/images/hero-2.jpg) center / cover;} } */
-     /* @media (max-width: 768px) { .hero{background:url(assets/images/hero.jpg) center / cover; }} */
+    /* @media (max-width: 1024px) {.hero {background:url(assets/images/hero-2.jpg) center / cover;} } */
+    /* @media (max-width: 768px) { .hero{background:url(assets/images/hero.jpg) center / cover; }} */
     
-   </style>
+  </style>
 
 </head>
 
 <body>
+  <!--Header-->
   <section class="hero is-info has-text-centered">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
           WhetherFun
         </h1>
-        <h2 class="subtitle">
-          
+        <h2 class="subtitle">    
         </h2>
-      </div>
+      </div> 
     </div>
   </section>
-
+<!--Form and Input Columns-->
 <div class="wrapper"> 
   <section class="main section">
-
     <div class="container" id='main-content'>
       <div class="columns is-vcentered">
         <div id="inputs" class="column">
           <div class="field">
-            <label id="description" class="label is-large">No matter the weather let's have some fun</label>
+            <label id="description" class="label is-large">No matter the weather let's have some fun
+            </label>
               <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="email" placeholder="Street" id='street'>
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-envelope fa-xs"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check fa-xs"></i>
-                  </span>
-                </div>
+                <input class="input is-large" type="email" placeholder="Street" id='street'>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope fa-xs"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check fa-xs"></i>
+                </span>
               </div>
+          </div>
               
-            
-              
-              <div class="field">
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="email" placeholder="City" id='city'>
-                  <span class="icon is-left">
-                    <i class="fas fa-envelope fa-sm"></i>
-                  </span>
-                  <span class="icon is-right">
-                    <i class="fas fa-check fa-sm"></i>
-                  </span>
-                </div>
-              </div>
-              
-              <div class="field">
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="email" placeholder="State" id='state'>
-                  <span class="icon is-large is-left">
-                    <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-large is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
-              </div>
-              
-              <div class="field">
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="email" placeholder="Zipcode" id='zipcode'>
-                  <span class="icon is-medium is-left">
-                    <i class="fas fa-envelope fa-lg"></i>
-                  </span>
-                  <span class="icon is-medium is-right">
-                    <i class="fas fa-check fa-lg"></i>
-                  </span>
-                </div>
-              </div>
-          
-              <div class="field">
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="email" placeholder="Country" id='country'>
-                  <span class="icon is-medium is-left">
-                    <i class="fas fa-envelope fa-lg"></i>
-                  </span>
-                  <span class="icon is-medium is-right">
-                    <i class="fas fa-check fa-lg"></i>
-                  </span>
-                </div>
-              </div> 
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-large" type="email" placeholder="City" id='city'>
+                <span class="icon is-left">
+                  <i class="fas fa-envelope fa-sm"></i>
+                </span>
+                <span class="icon is-right">
+                  <i class="fas fa-check fa-sm"></i>
+                </span>
             </div>
           </div>
-            <button class="button is-success is-large" id="sub"> Submit </button>
-
+              
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-large" type="email" placeholder="State" id='state'>
+              <span class="icon is-large is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-large is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+              
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-large" type="email" placeholder="Zipcode" id='zipcode'>
+              <span class="icon is-medium is-left">
+                <i class="fas fa-envelope fa-lg"></i>
+              </span>
+              <span class="icon is-medium is-right">
+                <i class="fas fa-check fa-lg"></i>
+              </span>
+            </div>
+          </div>
+          
+          <div class="field">
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-large" type="email" placeholder="Country" id='country'>
+              <span class="icon is-medium is-left">
+                <i class="fas fa-envelope fa-lg"></i>
+              </span>
+              <span class="icon is-medium is-right">
+                <i class="fas fa-check fa-lg"></i>
+              </span>
+            </div>
+          </div>  
+          <button class="button is-success is-large" id="sub"> Submit </button>
         </div>
-
+      </div>
+    </div>  
   </section>
-   
-    
-        <!--Modals-->
-          <div class="modal" id="page-modal">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-          <div class = "section modal-wrap">
-            <!-- Any other Bulma elements you want -->
-            
-            <div id="modal-box" class="box">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image is-64x64">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>
-                      Let us know what kind of mood you are in today?
-                    </p>
-                    <div class="buttons">
-              
-                      <button class="button is-warning" id='sad-button'>Relax</button>
-          
-                      <button class="button is-success" id='happy-button'>Happy</button>
-                     
-                    </div>
-                  </div>
-                  <nav class="level is-mobile">
-                    <div class="level-left">
-                      <a class="level-item" aria-label="reply">
-                        <span class="icon is-small">
-                          <i class="fas fa-reply" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                      <a class="level-item" aria-label="retweet">
-                        <span class="icon is-small">
-                          <i class="fas fa-retweet" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                      <a class="level-item" aria-label="like">
-                        <span class="icon is-small">
-                          <i class="fas fa-heart" aria-hidden="true"></i>
-                        </span>
-                      </a>
-                    </div>
-                  </nav>
-                </div>
-              </article>
-            </div>
-          </div>
-            
-          </div>
-          <button class="modal-close is-large" aria-label="close"></button>
-        </div>
-
-              </div>
-        
- 
-
-    <!-- Right side -->
-
-    </nav>
-          
+     
+  <!--Modals-->
+  <div class="modal" id="page-modal">
+    <div class="modal-background">
     </div>
-    <footer class="footer">
+    <div class="modal-content">
+      <div class = "section modal-wrap">            
+        <div id="modal-box" class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  Let us know what kind of mood you are in today?
+                </p>
+                <div class="buttons">
+                  <button class="button is-warning" id='sad-button'>Relax</button>
+                  <button class="button is-success" id='happy-button'>Happy</button>      
+                </div>
+              </div>
+              <nav class="level is-mobile">
+                <div class="level-left">
+                  <a class="level-item" aria-label="reply">
+                    <span class="icon is-small">
+                      <i class="fas fa-reply" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                  <a class="level-item" aria-label="retweet">
+                    <span class="icon is-small">
+                      <i class="fas fa-retweet" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                  <a class="level-item" aria-label="like">
+                    <span class="icon is-small">
+                      <i class="fas fa-heart" aria-hidden="true"></i>
+                    </span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  <!--Footer-->   
+  <footer class="footer-bottom">
     <div class="content has-text-centered">
       <p class="footer-tag">
-        <strong>Site brought to you by <span>WetherFun Incorp</span></a>.
+        Site brought to you by<br> <strong>WetherFun Incorp</strong></a>.
       </p>
     </div>
-    </footer>
+  </footer>
 </div>   
-    
-  
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+<!--Javascript Tag-->
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
+<script src="script.js"></script>
 </body>
 </html>

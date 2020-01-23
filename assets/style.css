@@ -2,7 +2,9 @@
   background: url("./images/hero-2.jpg") ;
   background-size: cover;
 }
-
+.main-section {
+  flex: 1;
+}
 p {
   color: red; 
 }
@@ -34,7 +36,7 @@ p {
   max-width: 650px;
 }
 .footer-tag {
-
+  color: black; 
 }
 .display-books-div {
   background-color: azure;
@@ -48,8 +50,8 @@ p {
   color: black; 
 }
 #wrapper {
-  display: relative;
-  min-height: 96vh;
+  display: flex;
+  min-height: 100vh;
 }
 
 .rest-image {
@@ -58,14 +60,14 @@ p {
 .box {
   padding: none; 
 }
-.footer {
+/* .footer-bottom {
   height: 50px; 
   padding: 10px !important;
   position: absolute;
   bottom: 0px;
   width: 100%;
   margin-top: 10px;
-}
+} */
 .title { 
   font-size: 50px !important; 
   font-family: "Rockwell"
