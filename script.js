@@ -60,7 +60,7 @@ $(document).ready(function(){
     var URL = 'https://developer.nps.gov/api/v1/parks?';
     var queryURL = `${URL}stateCode=${query}&api_key=${apiKey}`; 
     $.ajax({
-        url: queryURL ,
+        url: queryURL,
         method: "GET"
       }).then(function(response) {  
         var randomPark = Math.floor(Math.random(response.data.length ))
@@ -152,7 +152,7 @@ $(document).ready(function(){
    //Game Logic --------------------------------------->
   function happyLogic(goodWeather){
     var happy = true; 
-   // console.log('happy');
+   // console.log('happy');---------------------------->
     if(!goodWeather){
       //Go to park when happy and weather good
       parkCall(); 
@@ -216,7 +216,6 @@ $(document).ready(function(){
       infoDiv.innerHTML += `<p class="movie-info">${movieInfo[i]}</p>'`
     }
   }
-
   //Render Books---------------------------------------------------->
   function renderBooks(bookInfo){
     var submit = document.getElementById('sub');
@@ -259,9 +258,7 @@ $(document).ready(function(){
     }
   }
   
-
 //EVENTS------------------------------------------------>
-
  
   button.onclick = function(){
   modal.style.display = 'block';
