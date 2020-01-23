@@ -121,7 +121,7 @@ $(document).ready(function(){
         happyLogic(goodWeather);
         }
       sadButton.onclick = function (event){
-        event.style.display = 'none';
+       // event.style.display = 'none';
         sadLogic(goodWeather); 
         }
       })
