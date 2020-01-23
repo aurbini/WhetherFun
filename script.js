@@ -106,9 +106,9 @@ $(document).ready(function(){
       wind = response.wind.speed;
       temp = response.main.temp;
       main = response.weather[0].main;
-      console.log(typeof wind); 
+      console.log(temp); 
       var goodWeather; 
-      if(main === 'Clear' && temp > 50 && wind < 15){
+      if(temp > 50){
         goodWeather = true; 
       }else {
         goodWeather = false; 
@@ -241,6 +241,7 @@ $(document).ready(function(){
   }
   //Render Restaurant------------------------------------------------>
   function renderRestaurant(restaurantInfo){
+    console.log(restaurantInfo);
     var submit = document.getElementById('sub');
     submit.style.display = 'none';
     while(containerForm.firstChild){
