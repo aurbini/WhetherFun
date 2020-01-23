@@ -153,7 +153,7 @@ $(document).ready(function(){
   function happyLogic(goodWeather){
     var happy = true; 
    // console.log('happy');---------------------------->
-    if(!goodWeather){
+    if(goodWeather){
       //Go to park when happy and weather good
       parkCall(); 
     }else{
@@ -207,14 +207,20 @@ $(document).ready(function(){
     infoDiv.appendChild(weather);
     for(var i = 0; i < movieInfo.length; i++){
       if(i === 4){
+        var imageDiv = document.createElement('div');
         var image = document.createElement(`img`);
         image.setAttribute('src',movieInfo[i]);
-        image.classList.add('rest-image');
-        infoDiv.appendChild(image);
+        image.classList.add('food-pic');
+        //image.classList.add('rest-image');
+        imageDiv.appendChild(image);
+        // var image = document.createElement(`img`);
+        // image.setAttribute('src',movieInfo[i]);
+        // image.classList.add('rest-image');
+        // infoDiv.appendChild(image);
         break; 
       }
       infoDiv.innerHTML += `<p class="movie-info">${movieInfo[i]}</p>'`
-    }
+    }containerForm.appendChild(imageDiv); 
   }
   //Render Books---------------------------------------------------->
   function renderBooks(bookInfo){
@@ -223,7 +229,7 @@ $(document).ready(function(){
   while(containerForm.firstChild){
     containerForm.removeChild(containerForm.firstChild);
   }
-  containerForm.innerHTML += `<div class="display-books-div"></div>`
+  containerForm.innerHTML += `<div class="display-info-div"></div>`
   var infoDiv = document.querySelector('.display-books-div');
   var weather = document.createElement('img');
   weather.setAttribute('src','https://images.pexels.com/photos/459451/pexels-photo-459451.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
@@ -248,14 +254,16 @@ $(document).ready(function(){
     infoDiv.appendChild(weather);
     for(var i = 0; i < restaurantInfo.length; i++){
       if(i === 3){
+        var imageDiv = document.createElement('div');
         var image = document.createElement(`img`);
         image.setAttribute('src',restaurantInfo[i]);
+        image.classList.add('food-pic');
         image.classList.add('rest-image');
-        infoDiv.appendChild(image);
+        imageDiv.appendChild(image);
         break; 
       }
       infoDiv.innerHTML += `<p class='rest-info'>${restaurantInfo[i]}</p>'`
-    }
+    }containerForm.appendChild(imageDiv); 
   }
   
 //EVENTS------------------------------------------------>
