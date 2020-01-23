@@ -230,7 +230,7 @@ $(document).ready(function(){
     containerForm.removeChild(containerForm.firstChild);
   }
   containerForm.innerHTML += `<div class="display-info-div"></div>`
-  var infoDiv = document.querySelector('.display-books-div');
+  var infoDiv = document.querySelector('.display-info-div');
   var weather = document.createElement('img');
   weather.setAttribute('src','https://images.pexels.com/photos/459451/pexels-photo-459451.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
   weather.classList.add('rain-image');
