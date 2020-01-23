@@ -17,9 +17,19 @@ p {
 .modal {
   display: none; 
 }
+#main-content {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
 .sun-image {
   height: 150px;
   width: 100%; 
+}
+.food-pic {
+  height: 100%;
+  
+  margin-left: 10px;
 }
 .rain-image {
   height: 150px;
@@ -31,9 +41,9 @@ p {
 
 .display-info-div {
   background-color: azure;
-  display: flex; 
+  /*display: flex; */
   flex-direction: column;
-  max-width: 650px;
+  max-width: 350px;
 }
 .footer-tag {
   color: black; 
